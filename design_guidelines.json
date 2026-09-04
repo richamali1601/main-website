@@ -1,0 +1,70 @@
+{
+  "project_name": "The Vision Hive",
+  "app_type": "marketing_site",
+  "theme": {
+    "mode": "dark",
+    "archetype": "Luxury / Swiss Editorial Fusion",
+    "primary_color": "#0A0D10",
+    "accent_teal": "#00F2FE",
+    "accent_teal_rgb": "0, 242, 254",
+    "neutral_dark": "#12161C",
+    "neutral_gray": "#8C9BA5",
+    "off_white": "#F4F6F8"
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk / Outfit",
+    "body_font": "Inter / Plus Jakarta Sans",
+    "mono_font": "JetBrains Mono",
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight font-extrabold leading-[1.08]",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-bold",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "body": "text-base sm:text-lg text-neutral-400 leading-relaxed",
+      "eyebrow": "text-xs uppercase tracking-[0.25em] text-[#00F2FE] font-mono"
+    }
+  },
+  "colors": {
+    "background": "#0A0D10",
+    "surface": "#12161C",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "text_primary": "#F4F6F8",
+    "text_muted": "#8C9BA5",
+    "accent": "#00F2FE"
+  },
+  "image_urls": [
+    {
+      "category": "hero_abstract_architecture",
+      "url": "https://images.unsplash.com/photo-1531591022136-eb8b0da1e6d0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwYXJjaGl0ZWN0dXJlJTIwZWRpdG9yaWFsJTIwYWJzdHJhY3QlMjBkZXNpZ258ZW58MHx8fHwxNzg4NTA0NjIzfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Curved stainless steel abstract architecture for hero visual"
+    },
+    {
+      "category": "workspace_studio",
+      "url": "https://images.unsplash.com/photo-1497215842964-222b430dc094?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBkaWdpdGFsJTIwYWdlbmN5JTIwY3JlYXRpdmUlMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzg4NTA0NjIzfDA&ixlib=rb-4.1.0&q=85",
+      "description": "High-end luxury digital agency creative workspace"
+    },
+    {
+      "category": "portfolio_item_1",
+      "url": "https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYXJjaGl0ZWN0dXJlJTIwZWRpdG9yaWFsJTIwYWJzdHJhY3QlMjBkZXNpZ258ZW58MHx8fHwxNzg4NTA0NjIzfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Minimalist concrete building structure for featured work"
+    }
+  ],
+  "components": [
+    "StickyNavbar",
+    "HeroSection",
+    "MarqueeTicker",
+    "WhatWeDoSection",
+    "StatsCounter",
+    "InteractiveServicesGrid",
+    "ProcessSteps",
+    "FeaturedWork",
+    "PrinciplesSection",
+    "TestimonialSection",
+    "ContactFormAndCTA",
+    "Footer"
+  ],
+  "accessibility": {
+    "wcag": "AA compliant",
+    "apca": "Enforced for high contrast dark surfaces",
+    "focus_states": "ring-2 ring-[#00F2FE] outline-none"
+  }
+}
