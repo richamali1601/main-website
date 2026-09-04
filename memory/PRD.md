@@ -1,23 +1,33 @@
-# The Vision Hive — Product Brief
+# The Vision Hive — PRD
 
-## Original problem statement
-Create a premium, modern digital marketing agency website inspired by the visual experience and interaction quality of navbar digital while using entirely original branding, copy, imagery, work and testimonials for The Vision Hive. Include premium responsive navigation, hero, marquee, value proposition, stats, services, process, work placeholders, principles, testimonial, contact form and footer with restrained editorial motion, accessibility and no horizontal overflow.
+## Original Problem Statement
+Premium, modern digital marketing agency website inspired by navbardigital.com — minimal, editorial, technology-focused. Smooth scrolling, horizontal marquee, image/text reveals, custom branding ("The Vision Hive"), sections: Hero, Services, Work, Insights, Contact. Client-provided logo must be used cleanly. Dark/neutral palette, sticky responsive nav, scroll animations, interactive service cards, fully responsive.
 
-## Architecture decisions
-- React single-page marketing experience using the existing FastAPI/React/MongoDB starter.
-- Frontend-only interaction for this marketing MVP; no external integrations were requested.
-- Framer Motion handles reveals/menu transitions, CSS handles the continuous marquee and responsive system.
-- Supplied logo is referenced as the provided cloud asset; contact and portfolio details remain explicit placeholders.
+## Architecture
+- Frontend: React (single-page landing), custom CSS (flexbox/grid, CSS animations, media queries)
+- Backend: FastAPI template (not yet wired to features)
+- Database: MongoDB (available, not yet modeled)
+
+## User Personas
+- Prospective clients browsing services/work on desktop and mobile
+- Agency owner managing brand presentation and incoming enquiries
+
+## Core Requirements (static)
+- Premium dark aesthetic, teal accent, editorial typography (Manrope + DM Mono)
+- Sticky blurred nav, mobile hamburger full-screen menu
+- Hero with staggered reveals, orbs, scroll indicator
+- Infinite services marquee, stats counters, service accordion rows
+- Process, Work, Insights, Why Us, Testimonial, Final CTA, Footer
+- Fully responsive, no horizontal overflow
 
 ## Implemented
-- Rebuilt `/app/frontend/src/App.js` with original Vision Hive content and complete section flow.
-- Added editorial dark/teal visual system, responsive layout, mobile menu, service accordions, counters, marquee, form validation and success state in `App.css`.
-- Added branded page title, supplied logo treatment and ARIA state semantics for interactive controls.
-- Verified production build, lint, desktop/mobile rendering, navigation, form validation, service interactions, menu states and overflow.
-- Added three original Insights article cards with lead-generation-oriented topics and interactive read buttons.
-- Fixed logo visibility in navigation and footer with responsive warm-white logo plates and safe cropping.
+- 2026-09: Full landing page UI — all sections, animations, marquee, accordions, ARIA semantics, insights articles, frontend-validated contact form
+- 2026-09-04: Logo fix — trimmed transparent padding from source asset (521×479 → 476×275), saved locally as /frontend/public/logo.png, replaced 5 conflicting CSS override blocks with single clean `contain` rules; verified visually on desktop, mobile, and footer
 
 ## Backlog
-- P0: Replace placeholder contact details, portfolio/testimonial content and article metadata with verified business information.
-- P1: Connect the contact form to a real inbox or CRM endpoint.
-- P2: Add a full case-study detail route and insights articles when content is available.
+- P1: Backend contact form — POST /api/contact endpoint persisting to MongoDB (currently MOCKED frontend-only)
+- P2: Portfolio/Case Studies CMS wiring when real projects supplied
+- P2: Refactor App.js into modular components (Navbar, Hero, Services, Footer)
+
+## Credentials
+None (no auth).

@@ -6,7 +6,7 @@ import { ArrowDownRight, ArrowUpRight, Check, ChevronRight, Menu, X } from "luci
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
 
-const logoUrl = "https://customer-assets-eiarnc6j.emergentagent.net/job_922c671d-4646-4ace-988d-d4e31202f4af/artifacts/gr4208c4_main%20logo.webp";
+const logoUrl = "/logo.png";
 
 const services = [
   ["01", "Website Development", "Digital platforms with a sharp point of view, engineered for speed, clarity and conversion."],
