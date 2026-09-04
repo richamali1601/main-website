@@ -43,6 +43,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - 2026-09-04: Added rule coverage for website development, SEO, performance marketing/lead generation, digital marketing, social media, branding, UI/UX, automation, portfolio, agency information, insights, and explicit contact intent
 - 2026-09-04: Confirmed the chatbot is deterministic and does not send visitor messages or contact details to an AI/third-party service
 - 2026-09-04: Updated the results band to four metrics: 10+ projects delivered, 95+ performance score, 4.9/5 client satisfaction, and 5+ industries served; removed the placeholder disclaimer
+- 2026-09-04: Added the real agency email and Vesu, Surat address to the contact section and footer; added supplied Instagram, Facebook, and LinkedIn links in both locations and removed the phone placeholder
 
 ## Verification
 - Production frontend build: passed
@@ -58,6 +59,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - Lead-intent matrix retest: `paid leads`, `paid ads`, and `lead generation` all map to Performance Marketing
 - Production frontend build after chatbot implementation: passed
 - Verified all four exact metric values on desktop and confirmed the responsive two-column mobile layout has no horizontal overflow
+- Verified all supplied social URLs, mail links, new-tab behavior, desktop rendering, and mobile contact/footer overflow
 
 ## Prioritized Roadmap
 ### P0 — Current blockers
@@ -65,7 +67,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 
 ### P1 — Next
 - Replace the three portfolio placeholders with real case studies, project visuals, services, and verified outcomes once content is supplied
-- Replace placeholder email, phone, location, and social links with the agency's real contact details
+- Add the agency phone number if one is supplied later
 - Add approved external chatbot destinations such as booking or WhatsApp when real URLs are supplied
 
 ### P2 — Future / Backlog
