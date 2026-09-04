@@ -14,12 +14,14 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - Hero content that fits standard viewport heights without clipping
 - Responsive layouts without horizontal overflow
 - A reliable project enquiry flow that stores submitted leads
+- A lightweight guided concierge that helps visitors find relevant content without AI dependencies
 
 ## Architecture
 - Frontend: React 19 single-page website, Framer Motion, custom responsive CSS, Sonner notifications
 - Backend: FastAPI with all routes under `/api`
 - Database: MongoDB via `MONGO_URL` and `DB_NAME`
 - Contact API: `POST /api/contact`
+- Concierge: deterministic React rule engine with browser-persisted session state; no external chatbot API
 
 ## Contact Data Model
 - `id`: UUID string
@@ -37,6 +39,9 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - 2026-09-04: Added the live `POST /api/contact` endpoint with Pydantic validation and MongoDB persistence
 - 2026-09-04: Replaced the MOCKED contact timeout with a real frontend API request, loading state, inline errors, success state, and reusable clean form
 - 2026-09-04: Added backend regression coverage for valid submissions, invalid payloads, response safety, and MongoDB persistence
+- 2026-09-04: Added a premium floating normal chatbot with guided quick prompts, typed intent matching, service recommendations, internal section routing, contact-form prefilling, conversation reset, and browser session persistence
+- 2026-09-04: Added rule coverage for website development, SEO, performance marketing/lead generation, digital marketing, social media, branding, UI/UX, automation, portfolio, agency information, insights, and explicit contact intent
+- 2026-09-04: Confirmed the chatbot is deterministic and does not send visitor messages or contact details to an AI/third-party service
 
 ## Verification
 - Production frontend build: passed
@@ -48,6 +53,9 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - Desktop live contact submission and success state: passed
 - Fresh isolated mobile contact submission and overflow check: passed
 - Core site regression (navigation, menu, services, insights, logo, CTAs): passed
+- Concierge testing agent regression: launcher, prompts, routing, reset, persistence, keyboard behavior, contact prefill, existing contact API, and desktop/mobile layouts passed
+- Lead-intent matrix retest: `paid leads`, `paid ads`, and `lead generation` all map to Performance Marketing
+- Production frontend build after chatbot implementation: passed
 
 ## Prioritized Roadmap
 ### P0 — Current blockers
@@ -56,11 +64,13 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 ### P1 — Next
 - Replace the three portfolio placeholders with real case studies, project visuals, services, and verified outcomes once content is supplied
 - Replace placeholder email, phone, location, and social links with the agency's real contact details
+- Add approved external chatbot destinations such as booking or WhatsApp when real URLs are supplied
 
 ### P2 — Future / Backlog
 - Refactor the monolithic `App.js` into focused components such as Navbar, Hero, Services, Work, ContactForm, and Footer
 - Replace illustrative statistics and editorial/testimonial placeholders with verified agency proof
 - Add an internal lead-notification or enquiry-management workflow so new MongoDB leads are surfaced immediately
+- Optionally add anonymized concierge intent analytics to identify which services visitors request most often
 
 ## Credentials
 None. The website has no authentication.

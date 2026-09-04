@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight, Check, ChevronRight, Menu, X } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
+import { ConciergeChat } from "./components/ConciergeChat";
 
 const logoUrl = "/logo.png";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -98,9 +99,17 @@ export default function App() {
       setSending(false);
     }
   };
+  const handleChatNavigate = ({ target, prefill = "" }) => {
+    if (target === "contact") {
+      setSent(false);
+      if (prefill) setForm(current => ({ ...current, message: current.message || prefill }));
+    }
+    go(target);
+  };
   const nav = [["Services", "services"], ["Work", "work"], ["About", "about"], ["Insights", "insights"], ["Contact", "contact"]];
   return <div className="site-shell">
     <Toaster position="bottom-right" theme="dark" />
+    <ConciergeChat onNavigate={handleChatNavigate} />
     <header className="nav" data-testid="site-navigation"><button className="brand" onClick={() => go("top")} data-testid="nav-logo"><img src={logoUrl} alt="The Vision Hive logo" /></button><nav className="desktop-nav">{nav.map(([label, id]) => <button key={id} onClick={() => go(id)} data-testid={`nav-link-${id}`}>{label}</button>)}</nav><button className="nav-cta" onClick={() => go("contact")} data-testid="nav-lets-talk-button">Let's Talk <ArrowUpRight size={15} /></button><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen} aria-controls="mobile-navigation" data-testid="mobile-menu-toggle">{menuOpen ? <X /> : <Menu />}</button></header>
     <AnimatePresence>{menuOpen && <motion.div id="mobile-navigation" className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} data-testid="mobile-menu-overlay"><div className="mobile-menu-inner">{nav.map(([label, id], i) => <motion.button key={id} onClick={() => go(id)} initial={{ opacity: 0, x: 25 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * .07 }} data-testid={`mobile-nav-link-${id}`}>{label}<ArrowUpRight size={18} /></motion.button>)}<button className="button button-accent" onClick={() => go("contact")} data-testid="mobile-lets-talk-button">Let's Talk <ArrowUpRight size={17} /></button></div></motion.div>}</AnimatePresence>
 

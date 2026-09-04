@@ -1,0 +1,47 @@
+{
+  "summary": "Completed backend API regression and end-to-end chatbot + site regression testing on the public preview URL. Most chatbot and core site flows pass; one deterministic intent-mapping defect remains.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Chatbot paid leads intent classification",
+        "issue": "Typed intent 'I need more paid leads' falls back to generic response instead of Performance Marketing service guidance.",
+        "affected_selectors": [
+          "[data-testid='chat-message-input']",
+          "[data-testid='chat-send-button']",
+          "[data-testid^='chat-message-bot-']"
+        ]
+      }
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_contact_api.py",
+    "/app/backend/tests/test_core_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Update chatbot rule terms for Performance Marketing to include 'paid leads' phrase matching.",
+    "Re-run chatbot intent matrix after rules update to confirm paid leads, paid ads, and more leads variants all map correctly."
+  ],
+  "critical_code_review_comments": [
+    "chatRules service matching is strict substring based; near-variant phrase mismatch ('paid leads' vs existing 'more leads'/'paid ads') causes misclassification in a required guided flow."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_core_api.py",
+    "/app/test_reports/iteration_5.json"
+  ],
+  "success_rate": {
+    "backend": "100% (6/6 pytest passed)",
+    "frontend": "~96% (all requested chatbot/site regressions passed except one paid-leads intent mapping case)"
+  },
+  "seed_data_creation": "No dedicated seed data created. TEST_ prefixed data used in API tests and cleaned via fixtures.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Launcher open/close (desktop+mobile), quick prompts, Website Development recommendation/actions, Start project scroll+prefill+close, portfolio-to-work route, SEO/branding/social/UIUX/automation guidance, pricing contact route, restart, localStorage session restore, Enter submit, Escape close, mobile overflow checks, contact API UI submission, nav/mobile menu/service accordion/hero CTA regressions all passed. Only failing behavior is paid-leads intent mapping.",
+  "rca of the issue": "RCA: chatRules uses exact substring term matching in serviceRules. Performance Marketing terms include 'more leads' and 'paid ads' but not 'paid leads'. Repro: open chat -> send 'I need more paid leads' -> bot returns generic fallback ('I can help you find the right service...') instead of Performance Marketing recommendation with expected actions. Mitigation: add term variants (e.g., 'paid leads', 'lead generation') or token-based matching/stemming for intent robustness."
+}
