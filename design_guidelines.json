@@ -1,149 +1,86 @@
 {
+  "theme": "Dark Theme (Preserve existing dark/teal visual language)",
   "typography": {
-    "strategy": "The 'Old Money Tech' (Editorial)",
-    "primary_heading": {
-      "font": "Playfair Display",
-      "weights": ["italic", "regular", "bold"],
-      "usage": "H1, H2, large display numbers",
-      "style": "tracking-tighter, leading-none"
-    },
-    "body": {
-      "font": "Satoshi",
-      "weights": ["light", "regular", "medium"],
-      "usage": "Body text, labels, forms",
-      "style": "tracking-normal, leading-relaxed"
-    },
-    "scale": {
-      "h1": "text-5xl sm:text-6xl md:text-7xl",
-      "h2": "text-4xl sm:text-5xl",
-      "body": "text-base sm:text-lg",
-      "labels": "text-xs tracking-[0.2em] uppercase"
-    }
+    "headings": "Preserve existing typography. Use overflow-hidden containers for masked typography reveals.",
+    "body": "Preserve existing typography.",
+    "instructions": "Ensure all text reveals use stagger effects per line or per word to feel deliberate and editorial. Do not use generic opacity fades for headings."
   },
   "colors": {
-    "archetype": "LUXURY mixed with SWISS",
-    "background": {
-      "base": "#02090A",
-      "surface": "#051518",
-      "surface_glass": "bg-[#051518]/70 backdrop-blur-xl"
-    },
-    "text": {
-      "primary": "#E2F1F0",
-      "secondary": "#8CA6A6",
-      "accent": "#00E5C0"
-    },
-    "border": {
-      "subtle": "#0F2E33",
-      "focus": "#00E5C0"
-    },
-    "accent": {
-      "primary": "#00E5C0",
-      "primary_hover": "#33EAD1"
-    }
+    "primary": "Preserve existing dark/teal visual language",
+    "background": "Preserve existing",
+    "text": "Preserve existing",
+    "instructions": "Maintain exact brand colors. Motion should not alter the color palette, but can use gradient masks or clipping paths over the existing colors."
   },
   "visual_enhancers": {
-    "surfaces": "Glassmorphism for sticky nav/header with backdrop-saturate-150 and 1px delicate inner stroke (border-white/10). Dashboard cards and service detail sections use flat backgrounds with 1px subtle border.",
-    "textures": "Subtle noise overlay on the primary background to eliminate digital flatness.",
-    "effects": "Glowing gradient line (Tracing Beam) on the active 'Start a Project' CTA. All containers with border must have padding (p-8) to avoid text collision."
-  },
-  "component_name": [
-    "ServiceRow",
-    "ServiceDetailHero",
-    "ProcessTimeline",
-    "DeliverablesGrid",
-    "RelatedServicesNav",
-    "ProjectContactModal"
-  ],
-  "grids": {
-    "homepage_services": "Mode A: 'Tetris' Grid. gap-8 to gap-12. Alternating alignments with empty cells to create negative space and offset alignment. Do not perfectly fill 100% of the grid.",
-    "service_detail": "Desktop: Left column sticky (col-span-4) with Service Title and CTA; Right column scrolling (col-span-8) with Process, Deliverables, Outcomes."
-  },
-  "layouts": {
-    "homepage": "8 service rows staggered with overlapping images and large editorial typography. Ensure generous spacing (py-24 or py-32). Avoid Bootstrap columns.",
-    "service_detail_page": "Hero with dark overlay (bg-black/40 - never exceed 50%), followed by split-pane bento grid.",
-    "navigation": "Sticky top nav (Crystal Glass variant, z-50), logo left, center links, right 'Start a Project' CTA. Never use fully transparent background.",
-    "contact_form": "Shadcn dialog/modal. Auto-prefill the selected service in the Select component when opened via a specific service page."
+    "overlay": "Use very subtle grain or noise textures if suitable, but priority is on motion."
   },
   "motion": {
-    "scroll": "Lenis smooth scrolling for premium weight.",
-    "page_transitions": "Framer motion fade-in and slide-up for service details. Items staggered entrance.",
-    "interactions": "Hover states on service rows: image scales up slightly (scale-105) with transform transition. Button hover: specific element transitions, never transition: all."
-  },
-  "accessibility": {
-    "contrast": "Ensure APCA contrast ratio. Teal text on dark background must be bright enough (#00E5C0). Text over images must have drop shadow or background overlay.",
-    "focus": "focus:ring-2 focus:ring-[#00E5C0] focus:outline-none focus:ring-offset-2 focus:ring-offset-[#02090A].",
-    "motion": "Respect prefers-reduced-motion media query.",
-    "testing": "All interactive elements MUST include data-testid (e.g., data-testid='start-project-btn', data-testid='service-link-seo')."
-  },
-  "media": {
-    "image_style": "High contrast, dark editorial vibe. Max mobile height 80vh to avoid blocking content.",
-    "video": "Optional dark ambient background video for the main hero."
-  },
-  "3d_libraries": {
-    "usage": "Use Framer Motion 3D for subtle scrolling perspective shifts. No heavy 3D canvases required for these text/image-heavy detail pages."
-  },
-  "image_urls": {
-    "digital_marketing": {
-      "url": "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86",
-      "description": "Graphical user interface"
+    "easings": {
+      "editorial": "[0.76, 0, 0.24, 1]",
+      "smooth": "[0.25, 1, 0.5, 1]",
+      "spring_human": "{ type: 'spring', damping: 30, stiffness: 100, mass: 1.5 }"
     },
-    "social_media_marketing": {
-      "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-      "description": "Performance analytics on a laptop screen"
+    "patterns": {
+      "masked_headline": {
+        "description": "Headings slide up from a hidden baseline (overflow-hidden container) with a subtle tilt or scale. Never use simple opacity fades.",
+        "framer_motion": {
+          "initial": { "y": "100%", "rotate": 2 },
+          "animate": { "y": "0%", "rotate": 0 },
+          "transition": { "duration": 1.2, "ease": "[0.76, 0, 0.24, 1]" }
+        }
+      },
+      "image_reveal": {
+        "description": "Images unmask using a clip-path wiping from bottom-to-top or center, while the image itself scales down slightly (parallax scale).",
+        "framer_motion": {
+          "container_initial": { "clipPath": "inset(100% 0% 0% 0%)" },
+          "container_animate": { "clipPath": "inset(0% 0% 0% 0%)" },
+          "image_initial": { "scale": 1.15 },
+          "image_animate": { "scale": 1 },
+          "transition": { "duration": 1.5, "ease": "[0.76, 0, 0.24, 1]" }
+        }
+      },
+      "scroll_linked_lines": {
+        "description": "Vertical or horizontal divider lines that draw themselves based on scroll progress.",
+        "implementation": "Use Framer Motion's useScroll() and useTransform() mapped to the scaleY or scaleX of a 1px div with transform-origin set to top or left."
+      },
+      "staggered_content": {
+        "description": "Lists (deliverables, process steps) reveal one after another using a short slide up and blur removal.",
+        "framer_motion": {
+          "initial": { "opacity": 0, "y": 20, "filter": "blur(4px)" },
+          "whileInView": { "opacity": 1, "y": 0, "filter": "blur(0px)" },
+          "transition": { "staggerChildren": 0.1, "ease": "easeOut", "duration": 0.8 }
+        }
+      },
+      "page_transition": {
+        "description": "Next-service transition at the bottom of the page scales up and overlaps the current view on scroll.",
+        "implementation": "Pin the current content and scale the next section up from 0.95, unmasking via clip-path."
+      }
     },
-    "performance_marketing": {
-      "url": "https://images.unsplash.com/photo-1591696205602-2f950c417cb9",
-      "description": "Stock market chart displayed on laptop screen"
-    },
-    "seo": {
-      "url": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74",
-      "description": "Turned on monitoring screen"
-    },
-    "branding_strategy": {
-      "url": "https://images.unsplash.com/photo-1777901513094-f8b4ca262d57",
-      "description": "A woman in a white t-shirt with colored lighting"
-    },
-    "logo_design": {
-      "url": "https://images.unsplash.com/photo-1520583457224-aee11bad5112",
-      "description": "MacBook Pro open near black Canon mug"
-    },
-    "website_development": {
-      "url": "https://images.unsplash.com/photo-1525373698358-041e3a460346",
-      "description": "Laptop computer turn on"
-    },
-    "brand_promotion": {
-      "url": "https://images.unsplash.com/photo-1651922118442-03fa6b432873",
-      "description": "A lit candle in a dark room"
+    "accessibility": {
+      "prefers_reduced_motion": "All motion MUST check `useReducedMotion()` from framer-motion. If true, replace clip-path and translation animations with a simple fast crossfade (opacity 0 to 1 over 0.2s) or disable entirely."
     }
   },
-  "instructions_to_main_agent": [
-    "Build the 8 service detail pages using dynamic routing (e.g., /services/:slug in React/Router).",
-    "Implement the 'Start a Project' CTA to open a Shadcn Dialog containing the contact form.",
-    "Pass the current service name as a parameter/state to the contact form so the 'Service Required' Select field is auto-prefilled based on context.",
-    "For the homepage, reorder the 8 services into staggered rows using the Mode A Tetris Grid. Each row must have a distinct editorial layout (e.g., alternating left/right image placements) and not just be a repetitive list.",
-    "Use Playfair Display for all H1/H2 headings and Satoshi for body text.",
-    "Implement Lenis for smooth scrolling.",
-    "Include 'data-testid' attributes on all clickable and interactive elements.",
-    "Use Shadcn UI for the contact form, dropdowns, and dialogs, completely stripping default Vercel styles to match the dark/teal editorial theme.",
-    "Ensure the hero images on service detail pages use a maximum opacity of bg-black/50 overlay.",
-    "Ensure all Shadcn components are integrated using .js files as specified."
+  "layouts": {
+    "instructions": "Retain existing layout structure of ServiceDetailPage.jsx. Wrap existing semantic blocks in Framer Motion components (`<motion.div>`, `<motion.h1>`, etc) to apply the animation blueprint without altering the DOM flow."
+  },
+  "component_instructions": {
+    "ServiceDetailPage": "Wrap the main page component in a motion entry layout. Add `useScroll` on the window or main container to power a scroll-linked progress indicator (e.g. a fixed thin line on the left/right edge or top).",
+    "Typography": "Refactor specific textual headers into an `<OverflowMask>` helper component (a span/div with overflow-hidden) to handle the slide-up text cleanly.",
+    "HeroSection": "Implement the clip-path image reveal and image parallax scale effect inside.",
+    "ProcessList": "Convert list items to `<motion.li>` for staggered entrance on `whileInView`.",
+    "NextServiceFooter": "Implement a scroll-triggered scale up or background unmask transition for next-service."
+  },
+  "GENERAL_UI_UX_DESIGN_GUIDELINES": [
+    "DO NOT use completely transparent backgrounds in headers, overlays, or surfaces that have content underneath. Ensure readable contrast.",
+    "All interactive elements and key informational areas MUST include a `data-testid` attribute (e.g., `data-testid=\"service-next-link\"`) for automated testing.",
+    "Rely on optical alignment over strict geometric alignment for humanized layouts."
   ],
   "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
-    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
-    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
-    "Create depth through layered design elements with z-index hierarchy.",
-    "Use glass-morphism effects with backdrop filters (12-24px blur).",
-    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements.",
-    "You MUST NOT center align the app container, ie do not add .App { text-align: center; }.",
-    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
-    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons.",
-    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
-    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
-    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
-    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN.",
-    "Prioritize using pre-existing components from src/components/ui when applicable.",
-    "Use sonner for toasts, located in /app/src/components/ui/sonner.js.",
-    "DO NOT use complete transparent background in header, overlays, any surface that has content under it."
+    "You tend to converge toward generic, 'on distribution' outputs. Make creative, distinctive frontends that surprise and delight.",
+    "Use framer-motion extensively for these editorial interactions.",
+    "DO NOT apply universal CSS transition (`transition: all`), as it conflicts with Framer Motion transforms.",
+    "Do not alter the established color palette (dark/teal). Keep the original site theme completely intact.",
+    "Ensure 100% adherence to prefers-reduced-motion via Framer Motion.",
+    "Do not use generic fade-in-up animations. Use the specific custom eases and clip-path strategies defined in the motion section."
   ]
 }

@@ -47,6 +47,8 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - 2026-09-04: Replaced the homepage capability list with the requested order: Digital Marketing, Social Media Marketing, Performance Marketing, SEO, Branding & Strategy, Logo Design, Website Development, and Brand Promotion
 - 2026-09-04: Added eight dedicated `/services/:slug` pages with professional service-specific overview, imagery, deliverables, process, ideal-fit guidance, outcomes, related-service navigation, and responsive editorial layouts
 - 2026-09-04: Connected every service CTA to the homepage project brief with the selected service prefilled; updated the guided chatbot to open matching service detail routes
+- 2026-09-04: Added a balanced, editorial motion system to service pages only: masked word-by-word hero titles, image unmasking and subtle parallax, scroll-progress tracking, drawn section rules, staggered deliverables/process content, directional outcome reveals, refined hover states, and a scaled next-service transition
+- 2026-09-04: Added reduced-motion fallbacks and kept the service navigation geometry fixed for immediate interaction while preserving animated page content
 
 ## Verification
 - Production frontend build: passed
@@ -65,6 +67,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - Verified all supplied social URLs, mail links, new-tab behavior, desktop rendering, and mobile contact/footer overflow
 - Testing agent verified all eight direct service routes, exact homepage ordering, imagery, section counts, next-service cycle, contact prefilling, chatbot routing, existing contact API, and desktop/mobile regressions; backend tests passed 6/6
 - Production build and deterministic chat-action route retest passed; mobile service pages have no horizontal overflow
+- Motion regression verified across all eight routes: 6/6 backend tests passed, animated content remains readable, reduced-motion mode works, mobile CTAs do not overlap, and immediate All Services mouse navigation settles on the correct homepage section
 
 ## Prioritized Roadmap
 ### P0 — Current blockers
