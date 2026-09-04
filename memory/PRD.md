@@ -42,6 +42,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - 2026-09-04: Added a premium floating normal chatbot with guided quick prompts, typed intent matching, service recommendations, internal section routing, contact-form prefilling, conversation reset, and browser session persistence
 - 2026-09-04: Added rule coverage for website development, SEO, performance marketing/lead generation, digital marketing, social media, branding, UI/UX, automation, portfolio, agency information, insights, and explicit contact intent
 - 2026-09-04: Confirmed the chatbot is deterministic and does not send visitor messages or contact details to an AI/third-party service
+- 2026-09-04: Replaced illustrative results with three verified metrics: 10+ projects delivered, 4.9/5 client satisfaction, and 5+ industries served; removed the performance-score metric and placeholder disclaimer
 
 ## Verification
 - Production frontend build: passed
@@ -56,6 +57,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - Concierge testing agent regression: launcher, prompts, routing, reset, persistence, keyboard behavior, contact prefill, existing contact API, and desktop/mobile layouts passed
 - Lead-intent matrix retest: `paid leads`, `paid ads`, and `lead generation` all map to Performance Marketing
 - Production frontend build after chatbot implementation: passed
+- Verified the three exact metric values on desktop and confirmed the mobile stats layout has no horizontal overflow
 
 ## Prioritized Roadmap
 ### P0 — Current blockers
@@ -68,7 +70,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 
 ### P2 — Future / Backlog
 - Refactor the monolithic `App.js` into focused components such as Navbar, Hero, Services, Work, ContactForm, and Footer
-- Replace illustrative statistics and editorial/testimonial placeholders with verified agency proof
+- Replace the remaining editorial/testimonial placeholders with verified agency proof
 - Add an internal lead-notification or enquiry-management workflow so new MongoDB leads are surfaced immediately
 - Optionally add anonymized concierge intent analytics to identify which services visitors request most often
 

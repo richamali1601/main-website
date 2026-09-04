@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
+import "./components/Stats.css";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight, Check, ChevronRight, Menu, X } from "lucide-react";
 import { toast } from "sonner";
@@ -46,11 +47,11 @@ function Reveal({ children, className = "", delay = 0 }) {
   return <motion.div className={className} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: .7, delay, ease: [.22, 1, .36, 1] }}>{children}</motion.div>;
 }
 
-function Counter({ value, suffix = "", label }) {
+function Counter({ value, suffix = "", label, decimals = 0 }) {
   const ref = useRef(null); const visible = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
-  useEffect(() => { if (!visible) return; let start = 0; const step = () => { start += Math.ceil(value / 30); if (start >= value) { setCount(value); return; } setCount(start); requestAnimationFrame(step); }; requestAnimationFrame(step); }, [visible, value]);
-  return <div ref={ref} className="stat" data-testid={`stat-${label.toLowerCase().replaceAll(" ", "-")}`}><strong>{count}{suffix}</strong><span>{label}</span></div>;
+  useEffect(() => { if (!visible) return; let frame = 0; const step = () => { frame += 1; const next = value * Math.min(frame / 30, 1); setCount(next); if (frame < 30) requestAnimationFrame(step); }; requestAnimationFrame(step); }, [visible, value]);
+  return <div ref={ref} className="stat" data-testid={`stat-${label.toLowerCase().replaceAll(" ", "-")}`}><strong>{count.toFixed(decimals)}{suffix}</strong><span>{label}</span></div>;
 }
 
 export default function App() {
@@ -120,7 +121,7 @@ export default function App() {
 
       <section id="about" className="section-pad intro"><Reveal><p className="eyebrow">WHAT WE DO <span>—</span></p></Reveal><div className="intro-layout"><Reveal delay={.05}><h2>WE BUILD DIGITAL SYSTEMS THAT TURN <em>ATTENTION</em> INTO GROWTH.</h2></Reveal><Reveal delay={.12}><div><p>We don't just create websites or run campaigns. We combine strategy, creative, technology and performance to build digital systems designed around measurable business outcomes.</p><button className="text-link" onClick={() => go("services")} data-testid="intro-services-link">Explore our capabilities <ArrowUpRight size={16} /></button></div></Reveal></div></section>
 
-      <section className="stats-band" data-testid="results-section"><div className="stats-grid"><Counter value={100} suffix="+" label="Projects delivered" /><Counter value={95} suffix="+" label="Performance score" /><Counter value={49} suffix="/5" label="Client satisfaction" /><Counter value={10} suffix="+" label="Industries served" /></div><p className="placeholder-note">Illustrative benchmarks — replace with verified Vision Hive results.</p></section>
+      <section className="stats-band" data-testid="results-section"><div className="stats-grid"><Counter value={10} suffix="+" label="Projects delivered" /><Counter value={4.9} suffix="/5" decimals={1} label="Client satisfaction" /><Counter value={5} suffix="+" label="Industries served" /></div></section>
 
       <section id="services" className="section-pad services-section"><Reveal><p className="eyebrow">OUR CAPABILITIES <span>—</span></p><div className="section-heading"><h2>FULL-SERVICE<br /><em>DIGITAL GROWTH.</em></h2><p>Everything you need to build, launch and grow your digital presence.</p></div></Reveal><div className="services-list">{services.map((s, i) => <Reveal key={s[0]} delay={i * .04}><button className={`service-row ${active === i ? "active" : ""}`} onClick={() => setActive(active === i ? -1 : i)} aria-expanded={active === i} aria-controls={`service-description-${s[0]}`} data-testid={`service-card-${s[0]}`}><span className="service-no">{s[0]}</span><span className="service-title">{s[1]}</span><span className="service-desc" id={`service-description-${s[0]}`}>{s[2]}</span><span className="service-arrow"><ArrowUpRight size={22} /></span></button></Reveal>)}</div></section>
 
