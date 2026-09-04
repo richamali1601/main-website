@@ -6,31 +6,31 @@ export const QUICK_PROMPTS = [
 ];
 
 const serviceRules = [
-  { name: "Website Development", terms: ["website", "web design", "web development", "landing page", "ecommerce", "e-commerce"] },
-  { name: "SEO", terms: ["seo", "search engine", "google ranking", "organic traffic", "rank higher"] },
-  { name: "Performance Marketing", terms: ["more leads", "paid leads", "generate leads", "lead generation", "customer acquisition", "paid traffic", "paid ads", "advertising", "performance", "conversion", "google ads", "meta ads"] },
-  { name: "Digital Marketing", terms: ["digital marketing", "campaign", "marketing strategy", "growth plan"] },
-  { name: "Social Media Marketing", terms: ["social media", "instagram", "linkedin", "content calendar", "social content"] },
-  { name: "Branding & Strategy", terms: ["branding", "brand identity", "logo", "positioning", "brand strategy"] },
-  { name: "UI/UX Design", terms: ["ui", "ux", "user experience", "interface", "product design"] },
-  { name: "AI & Automation", terms: ["automation", "chatbot", "workflow", "artificial intelligence", " ai "] },
+  { name: "Website Development", slug: "website-development", terms: ["website", "web design", "web development", "landing page", "ecommerce", "e-commerce"] },
+  { name: "SEO", slug: "seo", terms: ["seo", "search engine", "google ranking", "organic traffic", "rank higher"] },
+  { name: "Performance Marketing", slug: "performance-marketing", terms: ["more leads", "paid leads", "generate leads", "lead generation", "customer acquisition", "paid traffic", "paid ads", "advertising", "performance", "conversion", "google ads", "meta ads"] },
+  { name: "Digital Marketing", slug: "digital-marketing", terms: ["digital marketing", "campaign", "marketing strategy", "growth plan"] },
+  { name: "Social Media Marketing", slug: "social-media-marketing", terms: ["social media", "instagram", "linkedin", "content calendar", "social content"] },
+  { name: "Logo Design", slug: "logo-design", terms: ["logo", "logo design", "brand mark", "symbol design"] },
+  { name: "Branding & Strategy", slug: "branding-strategy", terms: ["branding", "brand identity", "positioning", "brand strategy"] },
+  { name: "Brand Promotion", slug: "brand-promotion", terms: ["brand promotion", "awareness", "launch campaign", "promote my brand"] },
 ];
 
 const hasAny = (message, terms) => terms.some(term => message.includes(term));
 
 const buildServiceReply = (service) => ({
-  text: `${service} sounds like the strongest place to start. I can take you to the relevant capabilities or help you open a project brief.`,
-  service,
+  text: `${service.name} sounds like the strongest place to start. I can show you the full service details or help you open a project brief.`,
+  service: service.name,
   actions: [
-    { label: "View capabilities", target: "services" },
-    { label: "Start a project", target: "contact", prefill: `I'm interested in ${service}. ` },
+    { label: "View service details", target: "service", prefill: service.slug },
+    { label: "Start a project", target: "contact", prefill: `I'm interested in ${service.name}. ` },
   ],
 });
 
 export const getBotReply = (rawMessage, currentService = "") => {
   const message = ` ${rawMessage.toLowerCase().trim()} `;
   const matchedService = serviceRules.find(rule => hasAny(message, rule.terms));
-  if (matchedService) return buildServiceReply(matchedService.name);
+  if (matchedService) return buildServiceReply(matchedService);
 
   if (hasAny(message, ["contact", "talk", "speak", "quote", "proposal", "pricing", "price", "budget", "hire", "start a project", "get started", "book a call"])) {
     const serviceLine = currentService ? ` about ${currentService}` : "";
@@ -71,7 +71,7 @@ export const getBotReply = (rawMessage, currentService = "") => {
 
   if (hasAny(message, ["hello", "hi", "hey", "help", "what do you do", "services"])) {
     return {
-      text: "I can guide you through websites, SEO, paid growth, social media, branding, UI/UX, or automation. What are you trying to improve?",
+      text: "I can guide you through digital marketing, social media, paid growth, SEO, branding, logo design, websites, or brand promotion. What are you trying to improve?",
       service: currentService,
       actions: [{ label: "See all services", target: "services" }],
     };

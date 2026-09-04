@@ -118,7 +118,7 @@ export const ConciergeChat = ({ onNavigate }) => {
               {message.actions.map((action, actionIndex) => <button
                 key={`${message.id}-${action.target}-${actionIndex}`}
                 onClick={() => handleAction(action)}
-                data-testid={`chat-action-${message.id}-${actionIndex}`}
+                data-testid={`chat-action-${index}-${actionIndex}-${action.target}`}
               >{action.label}<ArrowUpRight size={14} /></button>)}
             </div>}
           </div>)}

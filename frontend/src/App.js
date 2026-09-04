@@ -5,9 +5,12 @@ import "./components/Stats.css";
 import "./components/ContactLinks.css";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight, Briefcase, Camera, Check, Mail, MapPin, Menu, Users, X } from "lucide-react";
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
 import { ConciergeChat } from "./components/ConciergeChat";
+import { serviceCatalog } from "./data/services";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 const logoUrl = "/logo.png";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -19,17 +22,6 @@ const socialLinks = [
 ];
 
 if (!backendUrl) throw new Error("REACT_APP_BACKEND_URL is required");
-
-const services = [
-  ["01", "Website Development", "Digital platforms with a sharp point of view, engineered for speed, clarity and conversion."],
-  ["02", "Digital Marketing", "Connected campaigns that put the right message in front of the right people at the right moment."],
-  ["03", "SEO", "A durable search strategy built on technical precision, useful content and earned authority."],
-  ["04", "Performance Marketing", "Smarter acquisition systems that turn spend into a compounding growth engine."],
-  ["05", "Social Media Marketing", "Distinctive stories and daily momentum that make your brand impossible to ignore."],
-  ["06", "Branding & Strategy", "Positioning, language and identity that give ambitious businesses a memorable advantage."],
-  ["07", "UI/UX Design", "Interfaces that feel intuitive, considered and unmistakably yours across every touchpoint."],
-  ["08", "AI & Automation", "Practical intelligent systems that remove friction and create more room for meaningful work."],
-];
 
 const processSteps = [
   ["01", "DISCOVER", "Understand the business, audience, competitors and objectives."],
@@ -61,11 +53,23 @@ function Counter({ value, suffix = "", label, decimals = 0 }) {
   return <div ref={ref} className="stat" data-testid={`stat-${label.toLowerCase().replaceAll(" ", "-")}`}><strong>{count.toFixed(decimals)}{suffix}</strong><span>{label}</span></div>;
 }
 
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false); const [active, setActive] = useState(0); const [sent, setSent] = useState(false); const [sending, setSending] = useState(false);
+function HomePage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false); const [sent, setSent] = useState(false); const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [formError, setFormError] = useState("");
   const go = (id) => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
+  useEffect(() => {
+    if (!location.state?.scrollTo) return;
+    const { scrollTo, contactPrefill = "" } = location.state;
+    if (contactPrefill) setForm(current => ({ ...current, message: contactPrefill }));
+    const timer = window.setTimeout(() => {
+      go(scrollTo);
+      navigate("/", { replace: true, state: null });
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, [location.state, navigate]);
   const submit = async (e) => {
     e.preventDefault();
     setFormError("");
@@ -108,6 +112,10 @@ export default function App() {
     }
   };
   const handleChatNavigate = ({ target, prefill = "" }) => {
+    if (target === "service") {
+      navigate(`/services/${prefill}`);
+      return;
+    }
     if (target === "contact") {
       setSent(false);
       if (prefill) setForm(current => ({ ...current, message: current.message || prefill }));
@@ -124,13 +132,13 @@ export default function App() {
     <main id="top">
       <section className="hero section-pad"><div className="hero-orb orb-one" /><div className="hero-orb orb-two" /><div className="hero-grid" /><div className="hero-copy"><Reveal><p className="eyebrow">CREATIVE DIGITAL AGENCY <span>●</span></p></Reveal><Reveal delay={.08}><h1 data-testid="hero-heading">BUILDING DIGITAL <em>EXPERIENCES</em><br /> THAT MOVE<br /> BUSINESSES <em>FORWARD.</em></h1></Reveal><Reveal delay={.16}><p className="hero-body">We combine strategy, design, technology and performance marketing to create digital experiences that attract attention, generate leads and accelerate growth.</p></Reveal><Reveal delay={.24}><div className="hero-actions"><button className="button button-accent" onClick={() => go("contact")} data-testid="hero-start-project-button">Start a Project <ArrowUpRight size={17} /></button><button className="button button-ghost" onClick={() => go("work")} data-testid="hero-explore-work-button">Explore Our Work <ArrowDownRight size={17} /></button></div></Reveal></div><div className="hero-meta"><span>Scroll to explore</span><span className="scroll-line" /></div><div className="hero-index">01 <span>/</span> 08</div></section>
 
-      <div className="marquee" data-testid="service-marquee"><div className="marquee-track">{[...Array(2)].flatMap((_, i) => services.map(s => <span key={`${i}-${s[0]}`}>{s[1]} <b>✦</b></span>))}</div></div>
+      <div className="marquee" data-testid="service-marquee"><div className="marquee-track">{[...Array(2)].flatMap((_, i) => serviceCatalog.map(service => <span key={`${i}-${service.number}`}>{service.title} <b>✦</b></span>))}</div></div>
 
       <section id="about" className="section-pad intro"><Reveal><p className="eyebrow">WHAT WE DO <span>—</span></p></Reveal><div className="intro-layout"><Reveal delay={.05}><h2>WE BUILD DIGITAL SYSTEMS THAT TURN <em>ATTENTION</em> INTO GROWTH.</h2></Reveal><Reveal delay={.12}><div><p>We don't just create websites or run campaigns. We combine strategy, creative, technology and performance to build digital systems designed around measurable business outcomes.</p><button className="text-link" onClick={() => go("services")} data-testid="intro-services-link">Explore our capabilities <ArrowUpRight size={16} /></button></div></Reveal></div></section>
 
       <section className="stats-band" data-testid="results-section"><div className="stats-grid"><Counter value={10} suffix="+" label="Projects delivered" /><Counter value={95} suffix="+" label="Performance score" /><Counter value={4.9} suffix="/5" decimals={1} label="Client satisfaction" /><Counter value={5} suffix="+" label="Industries served" /></div></section>
 
-      <section id="services" className="section-pad services-section"><Reveal><p className="eyebrow">OUR CAPABILITIES <span>—</span></p><div className="section-heading"><h2>FULL-SERVICE<br /><em>DIGITAL GROWTH.</em></h2><p>Everything you need to build, launch and grow your digital presence.</p></div></Reveal><div className="services-list">{services.map((s, i) => <Reveal key={s[0]} delay={i * .04}><button className={`service-row ${active === i ? "active" : ""}`} onClick={() => setActive(active === i ? -1 : i)} aria-expanded={active === i} aria-controls={`service-description-${s[0]}`} data-testid={`service-card-${s[0]}`}><span className="service-no">{s[0]}</span><span className="service-title">{s[1]}</span><span className="service-desc" id={`service-description-${s[0]}`}>{s[2]}</span><span className="service-arrow"><ArrowUpRight size={22} /></span></button></Reveal>)}</div></section>
+      <section id="services" className="section-pad services-section"><Reveal><p className="eyebrow">OUR CAPABILITIES <span>—</span></p><div className="section-heading"><h2>FULL-SERVICE<br /><em>DIGITAL GROWTH.</em></h2><p>Explore each capability in depth, then choose the right path for your next stage of growth.</p></div></Reveal><div className="services-list">{serviceCatalog.map((service, i) => <Reveal key={service.slug} delay={i * .04}><Link className="service-row" to={`/services/${service.slug}`} data-testid={`service-card-${service.number}`}><span className="service-no">{service.number}</span><span className="service-title">{service.title}</span><span className="service-desc" id={`service-description-${service.number}`}>{service.short}</span><span className="service-arrow"><ArrowUpRight size={22} /></span></Link></Reveal>)}</div></section>
 
       <section className="process-section"><div className="section-pad"><Reveal><p className="eyebrow">OUR PROCESS <span>—</span></p><div className="section-heading"><h2>HOW WE CREATE<br /><em>GROWTH.</em></h2><p>A strategy-first process designed to turn ideas into measurable results.</p></div></Reveal><div className="process-grid">{processSteps.map((p, i) => <Reveal key={p[0]} delay={i * .08}><div className="process-card" data-testid={`process-step-${p[0]}`}><span>{p[0]}</span><h3>{p[1]}</h3><p>{p[2]}</p></div></Reveal>)}</div></div></section>
 
@@ -146,4 +154,12 @@ export default function App() {
     </main>
     <footer className="footer"><div className="footer-top"><div className="footer-logo-plate"><img src={logoUrl} alt="The Vision Hive logo" data-testid="footer-logo" /></div><p>Strategy, design, technology and digital growth — working together.</p><button className="button button-accent" onClick={() => go("contact")} data-testid="footer-contact-button">Start a Project <ArrowUpRight size={17} /></button></div><div className="footer-bottom"><span data-testid="footer-copyright">© 2026 The Vision Hive. All rights reserved.</span><div className="footer-contact-meta"><a href="mailto:thevisionhive16@gmail.com" data-testid="footer-email-link"><Mail size={13} />thevisionhive16@gmail.com</a><span data-testid="footer-location"><MapPin size={13} />Vesu, Surat, 395007</span></div><div className="footer-socials" aria-label="Footer social media links">{socialLinks.map(({ label, href, Icon }) => <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={`Visit The Vision Hive on ${label}`} data-testid={`footer-social-${label.toLowerCase()}`}><Icon size={14} /><span>{label}</span></a>)}</div></div></footer>
   </div>;
+}
+
+export default function App() {
+  return <Routes>
+    <Route path="/" element={<HomePage />} />
+    <Route path="/services/:slug" element={<ServiceDetailPage />} />
+    <Route path="*" element={<HomePage />} />
+  </Routes>;
 }

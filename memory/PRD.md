@@ -17,7 +17,7 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - A lightweight guided concierge that helps visitors find relevant content without AI dependencies
 
 ## Architecture
-- Frontend: React 19 single-page website, Framer Motion, custom responsive CSS, Sonner notifications
+- Frontend: React 19 marketing site with React Router service-detail routes, Framer Motion, custom responsive CSS, and Sonner notifications
 - Backend: FastAPI with all routes under `/api`
 - Database: MongoDB via `MONGO_URL` and `DB_NAME`
 - Contact API: `POST /api/contact`
@@ -44,6 +44,9 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - 2026-09-04: Confirmed the chatbot is deterministic and does not send visitor messages or contact details to an AI/third-party service
 - 2026-09-04: Updated the results band to four metrics: 10+ projects delivered, 95+ performance score, 4.9/5 client satisfaction, and 5+ industries served; removed the placeholder disclaimer
 - 2026-09-04: Added the real agency email and Vesu, Surat address to the contact section and footer; added supplied Instagram, Facebook, and LinkedIn links in both locations and removed the phone placeholder
+- 2026-09-04: Replaced the homepage capability list with the requested order: Digital Marketing, Social Media Marketing, Performance Marketing, SEO, Branding & Strategy, Logo Design, Website Development, and Brand Promotion
+- 2026-09-04: Added eight dedicated `/services/:slug` pages with professional service-specific overview, imagery, deliverables, process, ideal-fit guidance, outcomes, related-service navigation, and responsive editorial layouts
+- 2026-09-04: Connected every service CTA to the homepage project brief with the selected service prefilled; updated the guided chatbot to open matching service detail routes
 
 ## Verification
 - Production frontend build: passed
@@ -60,6 +63,8 @@ Create a premium, modern digital marketing agency website inspired by navbardigi
 - Production frontend build after chatbot implementation: passed
 - Verified all four exact metric values on desktop and confirmed the responsive two-column mobile layout has no horizontal overflow
 - Verified all supplied social URLs, mail links, new-tab behavior, desktop rendering, and mobile contact/footer overflow
+- Testing agent verified all eight direct service routes, exact homepage ordering, imagery, section counts, next-service cycle, contact prefilling, chatbot routing, existing contact API, and desktop/mobile regressions; backend tests passed 6/6
+- Production build and deterministic chat-action route retest passed; mobile service pages have no horizontal overflow
 
 ## Prioritized Roadmap
 ### P0 — Current blockers

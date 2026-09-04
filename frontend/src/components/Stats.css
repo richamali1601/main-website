@@ -8,3 +8,7 @@
     gap: 35px 15px;
   }
 }
+
+.services-list a.service-row {
+  text-decoration: none;
+}

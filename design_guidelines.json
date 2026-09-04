@@ -1,70 +1,149 @@
 {
-  "project_name": "The Vision Hive",
-  "app_type": "marketing_site",
-  "theme": {
-    "mode": "dark",
-    "archetype": "Luxury / Swiss Editorial Fusion",
-    "primary_color": "#0A0D10",
-    "accent_teal": "#00F2FE",
-    "accent_teal_rgb": "0, 242, 254",
-    "neutral_dark": "#12161C",
-    "neutral_gray": "#8C9BA5",
-    "off_white": "#F4F6F8"
-  },
   "typography": {
-    "heading_font": "Cabinet Grotesk / Outfit",
-    "body_font": "Inter / Plus Jakarta Sans",
-    "mono_font": "JetBrains Mono",
-    "hierarchy": {
-      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight font-extrabold leading-[1.08]",
-      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-bold",
-      "h3": "text-xl sm:text-2xl font-semibold",
-      "body": "text-base sm:text-lg text-neutral-400 leading-relaxed",
-      "eyebrow": "text-xs uppercase tracking-[0.25em] text-[#00F2FE] font-mono"
+    "strategy": "The 'Old Money Tech' (Editorial)",
+    "primary_heading": {
+      "font": "Playfair Display",
+      "weights": ["italic", "regular", "bold"],
+      "usage": "H1, H2, large display numbers",
+      "style": "tracking-tighter, leading-none"
+    },
+    "body": {
+      "font": "Satoshi",
+      "weights": ["light", "regular", "medium"],
+      "usage": "Body text, labels, forms",
+      "style": "tracking-normal, leading-relaxed"
+    },
+    "scale": {
+      "h1": "text-5xl sm:text-6xl md:text-7xl",
+      "h2": "text-4xl sm:text-5xl",
+      "body": "text-base sm:text-lg",
+      "labels": "text-xs tracking-[0.2em] uppercase"
     }
   },
   "colors": {
-    "background": "#0A0D10",
-    "surface": "#12161C",
-    "border": "rgba(255, 255, 255, 0.08)",
-    "text_primary": "#F4F6F8",
-    "text_muted": "#8C9BA5",
-    "accent": "#00F2FE"
-  },
-  "image_urls": [
-    {
-      "category": "hero_abstract_architecture",
-      "url": "https://images.unsplash.com/photo-1531591022136-eb8b0da1e6d0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwYXJjaGl0ZWN0dXJlJTIwZWRpdG9yaWFsJTIwYWJzdHJhY3QlMjBkZXNpZ258ZW58MHx8fHwxNzg4NTA0NjIzfDA&ixlib=rb-4.1.0&q=85",
-      "description": "Curved stainless steel abstract architecture for hero visual"
+    "archetype": "LUXURY mixed with SWISS",
+    "background": {
+      "base": "#02090A",
+      "surface": "#051518",
+      "surface_glass": "bg-[#051518]/70 backdrop-blur-xl"
     },
-    {
-      "category": "workspace_studio",
-      "url": "https://images.unsplash.com/photo-1497215842964-222b430dc094?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBkaWdpdGFsJTIwYWdlbmN5JTIwY3JlYXRpdmUlMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzg4NTA0NjIzfDA&ixlib=rb-4.1.0&q=85",
-      "description": "High-end luxury digital agency creative workspace"
+    "text": {
+      "primary": "#E2F1F0",
+      "secondary": "#8CA6A6",
+      "accent": "#00E5C0"
     },
-    {
-      "category": "portfolio_item_1",
-      "url": "https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYXJjaGl0ZWN0dXJlJTIwZWRpdG9yaWFsJTIwYWJzdHJhY3QlMjBkZXNpZ258ZW58MHx8fHwxNzg4NTA0NjIzfDA&ixlib=rb-4.1.0&q=85",
-      "description": "Minimalist concrete building structure for featured work"
+    "border": {
+      "subtle": "#0F2E33",
+      "focus": "#00E5C0"
+    },
+    "accent": {
+      "primary": "#00E5C0",
+      "primary_hover": "#33EAD1"
     }
+  },
+  "visual_enhancers": {
+    "surfaces": "Glassmorphism for sticky nav/header with backdrop-saturate-150 and 1px delicate inner stroke (border-white/10). Dashboard cards and service detail sections use flat backgrounds with 1px subtle border.",
+    "textures": "Subtle noise overlay on the primary background to eliminate digital flatness.",
+    "effects": "Glowing gradient line (Tracing Beam) on the active 'Start a Project' CTA. All containers with border must have padding (p-8) to avoid text collision."
+  },
+  "component_name": [
+    "ServiceRow",
+    "ServiceDetailHero",
+    "ProcessTimeline",
+    "DeliverablesGrid",
+    "RelatedServicesNav",
+    "ProjectContactModal"
   ],
-  "components": [
-    "StickyNavbar",
-    "HeroSection",
-    "MarqueeTicker",
-    "WhatWeDoSection",
-    "StatsCounter",
-    "InteractiveServicesGrid",
-    "ProcessSteps",
-    "FeaturedWork",
-    "PrinciplesSection",
-    "TestimonialSection",
-    "ContactFormAndCTA",
-    "Footer"
-  ],
+  "grids": {
+    "homepage_services": "Mode A: 'Tetris' Grid. gap-8 to gap-12. Alternating alignments with empty cells to create negative space and offset alignment. Do not perfectly fill 100% of the grid.",
+    "service_detail": "Desktop: Left column sticky (col-span-4) with Service Title and CTA; Right column scrolling (col-span-8) with Process, Deliverables, Outcomes."
+  },
+  "layouts": {
+    "homepage": "8 service rows staggered with overlapping images and large editorial typography. Ensure generous spacing (py-24 or py-32). Avoid Bootstrap columns.",
+    "service_detail_page": "Hero with dark overlay (bg-black/40 - never exceed 50%), followed by split-pane bento grid.",
+    "navigation": "Sticky top nav (Crystal Glass variant, z-50), logo left, center links, right 'Start a Project' CTA. Never use fully transparent background.",
+    "contact_form": "Shadcn dialog/modal. Auto-prefill the selected service in the Select component when opened via a specific service page."
+  },
+  "motion": {
+    "scroll": "Lenis smooth scrolling for premium weight.",
+    "page_transitions": "Framer motion fade-in and slide-up for service details. Items staggered entrance.",
+    "interactions": "Hover states on service rows: image scales up slightly (scale-105) with transform transition. Button hover: specific element transitions, never transition: all."
+  },
   "accessibility": {
-    "wcag": "AA compliant",
-    "apca": "Enforced for high contrast dark surfaces",
-    "focus_states": "ring-2 ring-[#00F2FE] outline-none"
-  }
+    "contrast": "Ensure APCA contrast ratio. Teal text on dark background must be bright enough (#00E5C0). Text over images must have drop shadow or background overlay.",
+    "focus": "focus:ring-2 focus:ring-[#00E5C0] focus:outline-none focus:ring-offset-2 focus:ring-offset-[#02090A].",
+    "motion": "Respect prefers-reduced-motion media query.",
+    "testing": "All interactive elements MUST include data-testid (e.g., data-testid='start-project-btn', data-testid='service-link-seo')."
+  },
+  "media": {
+    "image_style": "High contrast, dark editorial vibe. Max mobile height 80vh to avoid blocking content.",
+    "video": "Optional dark ambient background video for the main hero."
+  },
+  "3d_libraries": {
+    "usage": "Use Framer Motion 3D for subtle scrolling perspective shifts. No heavy 3D canvases required for these text/image-heavy detail pages."
+  },
+  "image_urls": {
+    "digital_marketing": {
+      "url": "https://images.unsplash.com/photo-1666875753105-c63a6f3bdc86",
+      "description": "Graphical user interface"
+    },
+    "social_media_marketing": {
+      "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+      "description": "Performance analytics on a laptop screen"
+    },
+    "performance_marketing": {
+      "url": "https://images.unsplash.com/photo-1591696205602-2f950c417cb9",
+      "description": "Stock market chart displayed on laptop screen"
+    },
+    "seo": {
+      "url": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74",
+      "description": "Turned on monitoring screen"
+    },
+    "branding_strategy": {
+      "url": "https://images.unsplash.com/photo-1777901513094-f8b4ca262d57",
+      "description": "A woman in a white t-shirt with colored lighting"
+    },
+    "logo_design": {
+      "url": "https://images.unsplash.com/photo-1520583457224-aee11bad5112",
+      "description": "MacBook Pro open near black Canon mug"
+    },
+    "website_development": {
+      "url": "https://images.unsplash.com/photo-1525373698358-041e3a460346",
+      "description": "Laptop computer turn on"
+    },
+    "brand_promotion": {
+      "url": "https://images.unsplash.com/photo-1651922118442-03fa6b432873",
+      "description": "A lit candle in a dark room"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build the 8 service detail pages using dynamic routing (e.g., /services/:slug in React/Router).",
+    "Implement the 'Start a Project' CTA to open a Shadcn Dialog containing the contact form.",
+    "Pass the current service name as a parameter/state to the contact form so the 'Service Required' Select field is auto-prefilled based on context.",
+    "For the homepage, reorder the 8 services into staggered rows using the Mode A Tetris Grid. Each row must have a distinct editorial layout (e.g., alternating left/right image placements) and not just be a repetitive list.",
+    "Use Playfair Display for all H1/H2 headings and Satoshi for body text.",
+    "Implement Lenis for smooth scrolling.",
+    "Include 'data-testid' attributes on all clickable and interactive elements.",
+    "Use Shadcn UI for the contact form, dropdowns, and dialogs, completely stripping default Vercel styles to match the dark/teal editorial theme.",
+    "Ensure the hero images on service detail pages use a maximum opacity of bg-black/50 overlay.",
+    "Ensure all Shadcn components are integrated using .js files as specified."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; }.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN.",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "Use sonner for toasts, located in /app/src/components/ui/sonner.js.",
+    "DO NOT use complete transparent background in header, overlays, any surface that has content under it."
+  ]
 }
