@@ -1,11 +1,11 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, status
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 from typing import List
 import uuid
 from datetime import datetime, timezone
@@ -37,6 +37,26 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+
+class ContactCreate(BaseModel):
+    name: str = Field(min_length=2, max_length=120)
+    email: EmailStr
+    company: str = Field(default="", max_length=160)
+    message: str = Field(min_length=10, max_length=5000)
+
+    @field_validator("name", "company", "message", mode="before")
+    @classmethod
+    def trim_text_fields(cls, value):
+        return value.strip() if isinstance(value, str) else value
+
+
+class ContactSubmission(ContactCreate):
+    model_config = ConfigDict(extra="ignore")
+
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    status: str = "new"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
@@ -65,6 +85,19 @@ async def get_status_checks():
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
     
     return status_checks
+
+
+@api_router.post(
+    "/contact",
+    response_model=ContactSubmission,
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_contact_submission(input: ContactCreate):
+    contact = ContactSubmission(**input.model_dump())
+    document = contact.model_dump(mode="json")
+    await db.contact_submissions.insert_one(document)
+    logger.info("Contact submission received: %s", contact.id)
+    return contact
 
 # Include the router in the main app
 app.include_router(api_router)
