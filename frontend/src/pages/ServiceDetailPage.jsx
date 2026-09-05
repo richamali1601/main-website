@@ -51,6 +51,9 @@ export default function ServiceDetailPage() {
     ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
     : { hidden: { opacity: 0, y: 24, filter: "blur(4px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)" } };
   const listVariant = { hidden: {}, visible: { transition: { staggerChildren: reduceMotion ? 0 : .11 } } };
+  const outcomeVariant = reduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : { hidden: { x: "-102%" }, visible: { x: "0%" } };
 
   return <div className="service-page">
     <motion.div className="service-scroll-progress" style={{ scaleX: reduceMotion ? 1 : progress }} data-testid="service-scroll-progress" />
@@ -100,7 +103,7 @@ export default function ServiceDetailPage() {
         <motion.ul variants={listVariant} initial="hidden" whileInView="visible" viewport={{ once: true }}>{service.idealFor.map(item => <motion.li key={item} variants={itemVariant} transition={{ duration: reduceMotion ? .2 : .65, ease: SMOOTH_EASE }}><Check size={17} />{item}</motion.li>)}</motion.ul>
       </section>
 
-      <section className="service-outcomes" data-testid="service-outcomes-section"><motion.p initial={itemVariant.hidden} whileInView={itemVariant.visible} viewport={{ once: true }}>DESIGNED TO CREATE</motion.p><div>{service.outcomes.map((outcome, outcomeIndex) => <div className="outcome-mask" key={outcome}><motion.h3 initial={reduceMotion ? { opacity: 0 } : { x: "-102%" }} whileInView={reduceMotion ? { opacity: 1 } : { x: "0%" }} viewport={{ once: true }} transition={{ duration: reduceMotion ? .2 : 1, delay: reduceMotion ? 0 : outcomeIndex * .09, ease: EDITORIAL_EASE }} data-testid={`service-outcome-${outcomeIndex + 1}`}>{outcome}</motion.h3></div>)}</div></section>
+      <section className="service-outcomes" data-testid="service-outcomes-section"><motion.p initial={itemVariant.hidden} whileInView={itemVariant.visible} viewport={{ once: true }}>DESIGNED TO CREATE</motion.p><div>{service.outcomes.map((outcome, outcomeIndex) => <motion.div className="outcome-mask" key={outcome} initial="hidden" whileInView="visible" viewport={{ once: true, amount: .2 }}><motion.h3 variants={outcomeVariant} transition={{ duration: reduceMotion ? .2 : 1, delay: reduceMotion ? 0 : outcomeIndex * .09, ease: EDITORIAL_EASE }} data-testid={`service-outcome-${outcomeIndex + 1}`}>{outcome}</motion.h3></motion.div>)}</div></section>
 
       <motion.section className="service-next" initial={reduceMotion ? { opacity: 0 } : { scale: .96, clipPath: "inset(8% 4% 0 4%)" }} whileInView={reduceMotion ? { opacity: 1 } : { scale: 1, clipPath: "inset(0% 0% 0% 0%)" }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: reduceMotion ? .2 : 1.1, ease: EDITORIAL_EASE }}>
         <div><p>NEXT CAPABILITY</p><span>{nextService.number} / 08</span></div>
