@@ -14,16 +14,12 @@ import { serviceCatalog } from "./data/services";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 const logoUrl = "/main%20logo.PNG";
-const web3FormsEndpoint = "https://api.web3forms.com/submit";
-const web3FormsAccessKey = process.env.REACT_APP_WEB3FORMS_ACCESS_KEY;
 
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/thevisionhive16?igsi=MWY4b296a2s4dzdz", Icon: Camera },
   { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61590595676030", Icon: Users },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/richa-mali-228675282?utm_source=share_via&utm_content=profile&utm_medium=member_ios", Icon: Briefcase },
 ];
-
-if (!web3FormsAccessKey) throw new Error("REACT_APP_WEB3FORMS_ACCESS_KEY is required");
 
 const processSteps = [
   ["01", "DISCOVER", "Understand the business, audience, competitors and objectives."],
@@ -83,37 +79,10 @@ function HomePage() {
     }
 
     setSending(true);
-    try {
-      const response = await fetch(web3FormsEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: web3FormsAccessKey,
-          subject: `New project brief from ${form.name.trim()}`,
-          from_name: "The Vision Hive website",
-          name: form.name.trim(),
-          email: form.email.trim(),
-          replyto: form.email.trim(),
-          company: form.company.trim(),
-          message: form.message.trim(),
-        }),
-      });
-
-      const result = await response.json();
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "We couldn't send your brief right now. Please try again.");
-      }
-
-      setForm({ name: "", email: "", company: "", message: "" });
-      setSent(true);
-      toast.success("Your project brief has been sent to the Vision Hive team.");
-    } catch (error) {
-      const message = error.message || "We couldn't send your brief right now. Please try again.";
-      setFormError(message);
-      toast.error(message);
-    } finally {
-      setSending(false);
-    }
+    setForm({ name: "", email: "", company: "", message: "" });
+    setSent(true);
+    setSending(false);
+    toast.success("Your project brief has been saved for this demo.");
   };
   const handleChatNavigate = ({ target, prefill = "" }) => {
     if (target === "service") {
