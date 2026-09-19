@@ -7,7 +7,9 @@ Frontend-only portfolio website built with React.
 ```powershell
 cd frontend
 npm install
-npm start
+npm run dev
 ```
 
-The contact form is a frontend demo and does not send data to a backend or external service.
+Open the local URL shown in the terminal, usually `http://localhost:3000`.
+
+The project is frontend-only. The contact form validates the details and opens a prefilled email to `thevisionhive16@gmail.com` using the visitor's default email app. No backend server is required.
