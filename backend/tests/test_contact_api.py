@@ -3,6 +3,7 @@
 import os
 import uuid
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 import requests
@@ -10,8 +11,9 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 
 
-load_dotenv("/app/frontend/.env")
-load_dotenv("/app/backend/.env")
+ROOT_DIR = Path(__file__).resolve().parents[1]
+load_dotenv(ROOT_DIR / ".env")
+load_dotenv(ROOT_DIR.parent / "frontend" / ".env")
 
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL")
 MONGO_URL = os.environ.get("MONGO_URL")
@@ -19,9 +21,9 @@ DB_NAME = os.environ.get("DB_NAME")
 
 
 if not BASE_URL:
-    raise RuntimeError("REACT_APP_BACKEND_URL is required")
+    pytest.skip("REACT_APP_BACKEND_URL is not configured", allow_module_level=True)
 if not MONGO_URL or not DB_NAME:
-    raise RuntimeError("MONGO_URL and DB_NAME are required")
+    pytest.skip("MONGO_URL and DB_NAME are not configured", allow_module_level=True)
 
 
 @pytest.fixture

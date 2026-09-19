@@ -59,7 +59,7 @@ export default function ServiceDetailPage() {
     <motion.div className="service-scroll-progress" style={{ scaleX: reduceMotion ? 1 : progress }} data-testid="service-scroll-progress" />
     <ConciergeChat onNavigate={handleChatNavigate} />
     <header className="service-page-nav" data-testid="service-page-navigation">
-      <Link to="/" className="service-page-logo" data-testid="service-page-logo"><img src="/logo.png" alt="The Vision Hive logo" /></Link>
+      <Link to="/" className="service-page-logo" data-testid="service-page-logo"><img src="/main%20logo.PNG" alt="The Vision Hive logo" /></Link>
       <Link to="/" state={{ scrollTo: "services" }} className="service-nav-link" data-testid="service-page-all-services"><ArrowLeft size={15} /> All Services</Link>
       <button onClick={startProject} data-testid="service-page-nav-cta">Start a Project <ArrowUpRight size={15} /></button>
     </header>

@@ -57,6 +57,7 @@ class ContactSubmission(ContactCreate):
     status: str = "new"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():

@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
+import "./WorkCards.css";
 import "./components/Stats.css";
 import "./components/ContactLinks.css";
 import { AnimatePresence, motion, useInView } from "framer-motion";
@@ -12,8 +13,9 @@ import { ConciergeChat } from "./components/ConciergeChat";
 import { serviceCatalog } from "./data/services";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 
-const logoUrl = "/logo.png";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const logoUrl = "/main%20logo.PNG";
+const web3FormsEndpoint = "https://api.web3forms.com/submit";
+const web3FormsAccessKey = process.env.REACT_APP_WEB3FORMS_ACCESS_KEY;
 
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/thevisionhive16?igsi=MWY4b296a2s4dzdz", Icon: Camera },
@@ -21,7 +23,7 @@ const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/richa-mali-228675282?utm_source=share_via&utm_content=profile&utm_medium=member_ios", Icon: Briefcase },
 ];
 
-if (!backendUrl) throw new Error("REACT_APP_BACKEND_URL is required");
+if (!web3FormsAccessKey) throw new Error("REACT_APP_WEB3FORMS_ACCESS_KEY is required");
 
 const processSteps = [
   ["01", "DISCOVER", "Understand the business, audience, competitors and objectives."],
@@ -31,14 +33,14 @@ const processSteps = [
 ];
 
 const work = [
-  ["PROJECT PLACEHOLDER 01", "Industry / Year", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY"],
-  ["PROJECT PLACEHOLDER 02", "Industry / Year", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY"],
-  ["PROJECT PLACEHOLDER 03", "Industry / Year", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY"],
+  ["AMRUT", "Fashion / 2026", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY", "/work/amrut.jpg", "Amrut fashion brand logo"],
+  ["COFFY-RICO", "Coffee / 2026", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY", "/work/logo.svg", "Coffy-Rico brand logo"],
+  ["NIDHI SKINCARE", "Skincare / 2026", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY", "/work/nidhi-logo.avif", "Nidhi Skincare brand logo"],
 ];
 
 const insights = [
-  ["01", "The New Digital Advantage", "Why the brands that win next will design their website, content and growth engine as one system.", "Strategy"],
-  ["02", "Designing for the Decisive Moment", "A practical look at the small interface choices that turn curious visitors into confident customers.", "Experience"],
+  ["01", "From Visibility to Sales: How a Strong Digital Marketing Strategy Converts Audiences into Customers", "A practical guide to moving audiences from awareness and engagement through trust to conversion.", "Digital Marketing", "https://medium.com/@richamali1601/from-visibility-to-sales-how-a-strong-digital-marketing-strategy-converts-audiences-into-customers-ca153d68bab8?sharedUserId=richamali1601"],
+  ["02", "How Digital Marketing Can Help Startups Build a Strong Brand from Day One", "How startups can use branding, social media, content, SEO and paid marketing to build lasting visibility and trust.", "Brand Strategy", "https://medium.com/@richamali1601/how-digital-marketing-can-help-startups-build-a-strong-brand-from-day-one-d0784eff03f4?sharedUserId=richamali1601"],
   ["03", "From Activity to Momentum", "How ambitious teams can move beyond busywork and build a marketing rhythm that compounds.", "Growth"],
 ];
 
@@ -82,22 +84,24 @@ function HomePage() {
 
     setSending(true);
     try {
-      const response = await fetch(`${backendUrl}/api/contact`, {
+      const response = await fetch(web3FormsEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          access_key: web3FormsAccessKey,
+          subject: `New project brief from ${form.name.trim()}`,
+          from_name: "The Vision Hive website",
           name: form.name.trim(),
           email: form.email.trim(),
+          replyto: form.email.trim(),
           company: form.company.trim(),
           message: form.message.trim(),
         }),
       });
 
-      if (!response.ok) {
-        const message = response.status === 422
-          ? "Please check your details and use a valid work email."
-          : "We couldn't send your brief right now. Please try again.";
-        throw new Error(message);
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "We couldn't send your brief right now. Please try again.");
       }
 
       setForm({ name: "", email: "", company: "", message: "" });
@@ -142,11 +146,11 @@ function HomePage() {
 
       <section className="process-section"><div className="section-pad"><Reveal><p className="eyebrow">OUR PROCESS <span>—</span></p><div className="section-heading"><h2>HOW WE CREATE<br /><em>GROWTH.</em></h2><p>A strategy-first process designed to turn ideas into measurable results.</p></div></Reveal><div className="process-grid">{processSteps.map((p, i) => <Reveal key={p[0]} delay={i * .08}><div className="process-card" data-testid={`process-step-${p[0]}`}><span>{p[0]}</span><h3>{p[1]}</h3><p>{p[2]}</p></div></Reveal>)}</div></div></section>
 
-      <section id="work" className="section-pad work-section"><Reveal><p className="eyebrow">SELECTED WORK <span>—</span></p><div className="section-heading"><h2>PROOF, NOT<br /><em>PROMISES.</em></h2><p>Real stories will replace these placeholders as the Vision Hive portfolio takes shape.</p></div></Reveal><div className="work-grid">{work.map((w, i) => <Reveal key={w[0]} delay={i * .1}><article className="work-card" data-testid={`work-card-${i + 1}`}><div className={`work-visual visual-${i + 1}`}><span>PLACEHOLDER</span><i>{String(i + 1).padStart(2, "0")}</i></div><div className="work-info"><p className="eyebrow">{w[1]}</p><h3>{w[0]}</h3><p>{w[2]}</p><button onClick={() => go("contact")} data-testid={`work-case-study-${i + 1}`}>{w[3]} <ArrowUpRight size={16} /></button></div></article></Reveal>)}</div></section>
+  <section id="work" className="section-pad work-section"><Reveal><p className="eyebrow">SELECTED WORK <span>—</span></p><div className="section-heading"><h2>PROOF, NOT<br /><em>PROMISES.</em></h2><p>Real stories will replace these placeholders as the Vision Hive portfolio takes shape.</p></div></Reveal><div className="work-grid">{work.map((w, i) => <Reveal key={w[0]} delay={i * .1}><article className="work-card" data-testid={`work-card-${i + 1}`}><div className={`work-visual visual-${i + 1}`}>{w[4] ? <img src={w[4]} alt={w[5]} /> : <span>PLACEHOLDER</span>}<i>{String(i + 1).padStart(2, "0")}</i></div><div className="work-info"><p className="eyebrow">{w[1]}</p><h3>{w[0]}</h3><p>{w[2]}</p><button onClick={() => go("contact")} data-testid={`work-case-study-${i + 1}`}>{w[3]} <ArrowUpRight size={16} /></button></div></article></Reveal>)}</div></section>
 
       <section className="principles-section"><div className="section-pad"><Reveal><p className="eyebrow">WHY THE VISION HIVE <span>—</span></p><h2>BUILT FOR <em>AMBITIOUS</em> BRANDS.</h2></Reveal><div className="principles-grid">{[["01", "Strategy First", "Every decision starts with the business objective."], ["02", "Designed to Convert", "Design should not only look beautiful — it should drive action."], ["03", "Technology That Performs", "Fast, accessible and scalable digital experiences."], ["04", "Always Improving", "Launch is not the finish line. We continuously test and optimize."]].map((p, i) => <Reveal key={p[0]} delay={i * .08}><div className="principle" data-testid={`principle-${p[0]}`}><span>{p[0]}</span><h3>{p[1]}</h3><p>{p[2]}</p></div></Reveal>)}</div></div></section>
 
-      <section id="insights" className="insights-section section-pad"><Reveal><p className="eyebrow">INSIGHTS <span>—</span></p><div className="section-heading"><h2>THOUGHTS FOR<br /><em>FORWARD MOTION.</em></h2><p>Original perspectives on strategy, experience and the systems behind meaningful growth.</p></div></Reveal><div className="insights-grid">{insights.map((article, i) => <Reveal key={article[0]} delay={i * .08}><article className="insight-card" data-testid={`insight-card-${i + 1}`}><div className="insight-art"><span>{article[3]}</span><b>{article[0]}</b></div><div className="insight-content"><p className="eyebrow">5 MIN READ</p><h3>{article[1]}</h3><p>{article[2]}</p><button onClick={() => toast.info("Article preview — full editorial coming soon.")} data-testid={`insight-read-button-${i + 1}`}>Read article <ArrowUpRight size={16} /></button></div></article></Reveal>)}</div></section>
+      <section id="insights" className="insights-section section-pad"><Reveal><p className="eyebrow">INSIGHTS <span>—</span></p><div className="section-heading"><h2>THOUGHTS FOR<br /><em>FORWARD MOTION.</em></h2><p>Original perspectives on strategy, experience and the systems behind meaningful growth.</p></div></Reveal><div className="insights-grid">{insights.map((article, i) => <Reveal key={article[0]} delay={i * .08}><article className="insight-card" data-testid={`insight-card-${i + 1}`}><div className="insight-art"><span>{article[3]}</span><b>{article[0]}</b></div><div className="insight-content"><p className="eyebrow">5 MIN READ</p><h3>{article[1]}</h3><p>{article[2]}</p>{article[4] ? <a href={article[4]} target="_blank" rel="noreferrer" data-testid={`insight-read-button-${i + 1}`}>Read article <ArrowUpRight size={16} /></a> : <button onClick={() => toast.info("Article preview — full editorial coming soon.")} data-testid={`insight-read-button-${i + 1}`}>Read article <ArrowUpRight size={16} /></button>}</div></article></Reveal>)}</div></section>
 
       <section className="testimonial section-pad"><Reveal><p className="eyebrow">A NOTE FROM THE FUTURE <span>—</span></p><blockquote>“The most valuable digital experiences don't shout for attention. They earn it, then turn it into momentum.”</blockquote><p className="testimonial-credit">Vision Hive editorial placeholder<br /><span>Replace with a verified client testimonial</span></p></Reveal></section>
 

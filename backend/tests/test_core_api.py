@@ -2,17 +2,21 @@
 
 import os
 import uuid
+from pathlib import Path
 
+import pytest
 import requests
 from dotenv import load_dotenv
 
 
-load_dotenv("/app/frontend/.env")
+ROOT_DIR = Path(__file__).resolve().parents[1]
+load_dotenv(ROOT_DIR / ".env")
+load_dotenv(ROOT_DIR.parent / "frontend" / ".env")
 
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL")
 
 if not BASE_URL:
-    raise RuntimeError("REACT_APP_BACKEND_URL is required")
+    pytest.skip("REACT_APP_BACKEND_URL is not configured", allow_module_level=True)
 
 
 def test_api_root_returns_hello_world_payload():

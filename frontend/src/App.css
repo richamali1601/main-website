@@ -1,3 +1,17 @@
+.site-shell header .brand,
+.footer-logo-plate {
+	background: transparent !important;
+}
+
+.site-shell header .brand img,
+.site-shell .footer-logo-plate img {
+	mix-blend-mode: normal !important;
+}
+
+.site-shell header .brand img,
+.site-shell .footer-logo-plate img {
+	mix-blend-mode: normal !important;
+}
 .site-shell header .brand{background:var(--paper);padding:5px 12px;width:170px;height:60px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}.site-shell header .brand img{width:100%;height:100%;object-fit:contain;object-position:center;mix-blend-mode:multiply}.footer-logo-plate{background:var(--paper);padding:7px 14px;border-radius:4px;width:190px;height:76px;display:flex;align-items:center;justify-content:center}.site-shell .footer-logo-plate img{width:100%;height:100%;object-fit:contain;object-position:center;mix-blend-mode:multiply}@media(max-width:800px){.site-shell header .brand{width:145px;height:52px;padding:4px 10px}.footer-logo-plate{width:165px;height:66px}}
 .insights-section{background:#e8e7e1;color:var(--ink)}.insights-section .eyebrow,.insights-section .eyebrow span{color:#008b91}.insights-section .section-heading p{color:#596164}.insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.insight-card{background:#f3f1eb;border:1px solid rgba(10,13,16,.12);transition:transform .3s,box-shadow .3s}.insight-card:hover{transform:translateY(-7px);box-shadow:0 18px 35px rgba(10,13,16,.1)}.insight-art{height:190px;background:#132528;position:relative;padding:20px;display:flex;align-items:flex-end;justify-content:space-between;color:var(--teal)}.insight-card:nth-child(2) .insight-art{background:#b9c9c4;color:#102d30}.insight-card:nth-child(3) .insight-art{background:#d4b692;color:#142323}.insight-art span{font:11px 'DM Mono';letter-spacing:.14em;text-transform:uppercase}.insight-art b{font:clamp(4rem,8vw,7rem);line-height:.7;letter-spacing:-.1em;font-weight:500;opacity:.8}.insight-content{padding:27px}.insight-content .eyebrow{font-size:9px;margin-bottom:22px}.insight-content h3{font-size:25px;line-height:1.05;letter-spacing:-.05em;margin-bottom:15px}.insight-content>p:not(.eyebrow){font-size:13px;line-height:1.65;color:#596164;min-height:65px}.insight-content button{border:0;background:none;padding:0;display:inline-flex;gap:10px;align-items:center;font:700 11px Manrope;text-transform:uppercase;cursor:pointer}@media(max-width:800px){.brand{width:130px;height:52px}.footer-logo-plate{width:170px;height:68px}.insights-grid{grid-template-columns:1fr}.insight-art{height:160px}}
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
