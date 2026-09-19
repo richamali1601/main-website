@@ -68,7 +68,7 @@ function HomePage() {
     }, 120);
     return () => window.clearTimeout(timer);
   }, [location.state, navigate]);
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
     setFormError("");
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
@@ -79,10 +79,19 @@ function HomePage() {
     }
 
     setSending(true);
+    const subject = `New project brief from ${form.name.trim()}`;
+    const body = [
+      `Name: ${form.name.trim()}`,
+      `Email: ${form.email.trim()}`,
+      `Company: ${form.company.trim() || "Not provided"}`,
+      "",
+      form.message.trim(),
+    ].join("\n");
+    window.location.href = `mailto:thevisionhive16@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setForm({ name: "", email: "", company: "", message: "" });
     setSent(true);
     setSending(false);
-    toast.success("Your project brief has been saved for this demo.");
+    toast.success("Your email app is opening with the project brief.");
   };
   const handleChatNavigate = ({ target, prefill = "" }) => {
     if (target === "service") {
