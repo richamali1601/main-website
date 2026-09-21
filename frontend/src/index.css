@@ -1,4 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{outline-color:#12dbe5}body{margin:0;-webkit-font-smoothing:antialiased}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #12dbe5;outline-offset:4px}::selection{background:#12dbe5;color:#0a0d10}
+
+/* ─── CSS Variables ──────────────────────────────────────────────── */
+:root {
+  --ink:   #0a0d10;
+  --panel: #12171b;
+  --paper: #f3f1eb;
+  --muted: #a6afb3;
+  --line:  rgba(243, 241, 235, 0.16);
+  --teal:  #12dbe5;
+  --radius: 0.5rem;
+}
+
+/* ─── Base resets ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: Manrope, sans-serif;
+}
+h1, h2, h3, p { margin-top: 0; }
+
+/* ─── Screen-reader only utility ──────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Motion helpers (Framer-motion clip-path / overflow needs real CSS) */
+.service-title-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: .05em .04em .08em 0;
+  margin-bottom: -.08em;
+}
+.service-title-mask + .service-title-mask { margin-left: .18em; }
+.service-title-mask > span { display: inline-block; transform-origin: left bottom; }
+
+.motion-heading-mask { overflow: hidden; }
+.motion-heading-mask > div { transform-origin: left bottom; }
+
+.outcome-mask { overflow: hidden; }
+
+/* ─── Scroll progress bar (framer-motion style scaleX) ─────────── */
+.service-scroll-progress {
+  position: fixed;
+  z-index: 75;
+  top: 76px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--teal);
+  transform-origin: left center;
+  pointer-events: none;
+}
+@media (max-width: 800px) { .service-scroll-progress { top: 66px; } }
+@media (prefers-reduced-motion: reduce) { .service-scroll-progress { display: none; } }
+
+/* ─── Service hero media (parallax wrapper) ─────────────────────── */
+.service-hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform-origin: bottom center;
+}
+.service-hero-media img {
+  width: 100%;
+  height: calc(100% + 100px);
+  object-fit: cover;
+  object-position: center;
+  transform-origin: center center;
+}
+
+/* ─── Service section rule (animated scaleX line) ───────────────── */
+.service-section-rule {
+  position: absolute;
+  left: 9vw;
+  right: 9vw;
+  bottom: 72px;
+  height: 1px;
+  background: rgba(10, 13, 16, 0.2);
+  transform-origin: left center;
+}
+@media (max-width: 800px) {
+  .service-section-rule { left: 7vw; right: 7vw; bottom: 44px; }
+}
+
+/* ─── Deliverable card hover accent bar ─────────────────────────── */
+.deliverable-card { position: relative; overflow: hidden; transition: background-color .28s, box-shadow .28s; }
+.deliverable-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 3px;
+  background: #008b91;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .55s cubic-bezier(.76,0,.24,1);
+}
+.deliverable-card:hover { background: rgba(255,255,255,.3); box-shadow: 0 24px 42px rgba(10,13,16,.08); }
+.deliverable-card:hover::before { transform: scaleX(1); }
+@media (max-width: 800px) { .deliverable-card:hover { box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .deliverable-card, .deliverable-card::before { transition: none; } }
+
+/* ─── Process row hover accent bar ─────────────────────────────── */
+.process-row { position: relative; transition: background-color .25s; }
+.process-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -9px;
+  width: 2px;
+  background: var(--teal);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform .45s cubic-bezier(.76,0,.24,1);
+}
+.process-row:hover { background: rgba(243,241,235,.025); }
+.process-row:hover::before { transform: scaleY(1); }
+@media (prefers-reduced-motion: reduce) { .process-row, .process-row::before { transition: none; } }
+
+/* ─── Service next link icon hover ──────────────────────────────── */
+.service-next-link > svg { transition: transform .45s cubic-bezier(.76,0,.24,1); }
+.service-next-link:hover > svg { transform: translate(8px,-8px) rotate(4deg); }
+@media (prefers-reduced-motion: reduce) { .service-next-link > svg { transition: none; } }
+
+/* ─── Chat pulse ring ───────────────────────────────────────────── */
+.chat-launcher-ring::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid rgba(18,219,229,.16);
+  pointer-events: none;
+  animation: chatPulse 2.8s ease-in-out infinite;
+}
+.chat-launcher-ring.is-open::before { display: none; }
+@media (prefers-reduced-motion: reduce) { .chat-launcher-ring::before { animation: none; } }
+
+/* ─── Work card visual decorative ring ─────────────────────────── */
+.work-visual { position: relative; overflow: hidden; }
+.work-visual::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border: 1px solid rgba(18,219,229,.5);
+  border-radius: 50%;
+  transform: rotate(-28deg) scaleX(1.5);
+  transition: transform .7s;
+}
+.work-visual-2::after  { background: #c7d0c9; border-color: #122b2b; border-radius: 0; transform: rotate(45deg) scale(.7); }
+.work-visual-3::after  { background: #b5c6cc; border-color: #ecf2ed; border-radius: 0; transform: rotate(0deg) scale(.8); }
+.work-card:hover .work-visual::after { transform: rotate(15deg) scaleX(1.1); }
+
+/* ─── Service scroll cue animation ─────────────────────────────── */
+.service-scroll-cue-line {
+  display: block;
+  width: 42px;
+  height: 1px;
+  background: var(--teal);
+  transform-origin: left center;
+  animation: serviceCue 2.2s cubic-bezier(.76,0,.24,1) infinite;
+}
+@media (max-width: 800px) { .service-scroll-cue { display: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  .service-scroll-cue-line { animation: none; transform: scaleX(1); }
+}

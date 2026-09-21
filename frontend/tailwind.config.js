@@ -1,84 +1,102 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    // `overline` is a Tailwind utility; without this an app's own eyebrow-label class draws a line above the text.
-    blocklist: ["overline"],
-    darkMode: ["class"],
-    content: [
+  // `overline` is a Tailwind utility; without this an app's own eyebrow-label class draws a line above the text.
+  blocklist: ["overline"],
+  darkMode: ["class"],
+  content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html"
   ],
   theme: {
     extend: {
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
-      },
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        ink:   "#0a0d10",
+        panel: "#12171b",
+        paper: "#f3f1eb",
+        muted: "#a6afb3",
+        teal:  "#12dbe5",
+        line:  "rgba(243,241,235,0.16)",
+        // shadcn / radix tokens
+        background:  "hsl(var(--background))",
+        foreground:  "hsl(var(--foreground))",
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          DEFAULT:    "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
+          DEFAULT:    "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT:    "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+          DEFAULT:    "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          DEFAULT:    "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))'
+          DEFAULT:    "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        border: "hsl(var(--border))",
+        input:  "hsl(var(--input))",
+        ring:   "hsl(var(--ring))",
         chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))'
-        }
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
+        },
+      },
+      fontFamily: {
+        manrope: ["Manrope", "sans-serif"],
+        mono:    ["DM Mono", "monospace"],
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        'accordion-down': {
-          from: {
-            height: '0'
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)'
-          }
+        marquee: {
+          to: { transform: "translateX(-50%)" },
         },
-        'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)'
-          },
-          to: {
-            height: '0'
-          }
-        }
+        chatPulse: {
+          "0%, 100%": { opacity: "0.25", transform: "scale(0.98)" },
+          "50%":       { opacity: "0.8",  transform: "scale(1.035)" },
+        },
+        typingDot: {
+          "0%, 60%, 100%": { opacity: "0.3",  transform: "translateY(0)" },
+          "30%":            { opacity: "1",    transform: "translateY(-3px)" },
+        },
+        serviceCue: {
+          "0%, 100%": { transform: "scaleX(0.25)", opacity: "0.45" },
+          "50%":      { transform: "scaleX(1)",    opacity: "1" },
+        },
+        "accordion-down": {
+          from: { height: "0" },
+          to:   { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to:   { height: "0" },
+        },
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
-      }
-    }
+        marquee:         "marquee 32s linear infinite",
+        "chat-pulse":    "chatPulse 2.8s ease-in-out infinite",
+        "typing-dot":    "typingDot 1s infinite ease-in-out",
+        "service-cue":   "serviceCue 2.2s cubic-bezier(.76,0,.24,1) infinite",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up":   "accordion-up 0.2s ease-out",
+      },
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
