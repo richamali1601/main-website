@@ -6,6 +6,7 @@ import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
 import { ConciergeChat } from "./components/ConciergeChat";
+import SEOHead from "./components/SEOHead";
 import { serviceCatalog } from "./data/services";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 
@@ -160,6 +161,11 @@ function HomePage() {
 
   return (
     <div className="overflow-hidden">
+      <SEOHead
+        title="Digital Marketing Agency in Surat | The Vision Hive"
+        description="The Vision Hive is a digital marketing agency in Surat, India, helping businesses grow through SEO, social media, branding, performance marketing and web design."
+        path="/"
+      />
       <Toaster position="bottom-right" theme="dark" />
       <ConciergeChat onNavigate={handleChatNavigate} />
 
@@ -270,7 +276,7 @@ function HomePage() {
           <div className="relative z-[1] max-w-[980px]">
             <Reveal>
               <p className="font-mono font-medium text-[11px] tracking-[0.2em] text-teal uppercase mb-7">
-                CREATIVE DIGITAL AGENCY <span className="text-muted ml-3">●</span>
+                DIGITAL MARKETING AGENCY IN SURAT <span className="text-muted ml-3">●</span>
               </p>
             </Reveal>
             <Reveal delay={0.08}>

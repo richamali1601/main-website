@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Mail, MapPin } from "lucide
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { ConciergeChat } from "../components/ConciergeChat";
+import SEOHead, { SITE_URL } from "../components/SEOHead";
 import { getServiceBySlug, serviceCatalog } from "../data/services";
 
 const EDITORIAL_EASE = [0.76, 0, 0.24, 1];
@@ -38,13 +39,12 @@ export default function ServiceDetailPage() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-    if (!service) return;
-    document.title = `${service.title} | The Vision Hive`;
-    return () => { document.title = "The Vision Hive"; };
-  }, [service]);
+  }, [slug]);
 
   if (!service) return <Navigate to="/" replace />;
 
+  const seoDescription = `${service.title} services in Surat, Gujarat. ${service.intro}`;
+  const serviceUrl = `${SITE_URL}/services/${service.slug}`;
   const startProject    = () => navigate("/", { state: { scrollTo: "contact", contactPrefill: `I'm interested in ${service.title}. ` } });
   const handleChatNavigate = ({ target, prefill = "" }) => {
     if (target === "service") return navigate(`/services/${prefill}`);
@@ -64,6 +64,31 @@ export default function ServiceDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#080c0f] text-paper overflow-hidden">
+      <SEOHead
+        title={`${service.title} Services in Surat | The Vision Hive`}
+        description={seoDescription.slice(0, 155).trimEnd() + (seoDescription.length > 155 ? "..." : "")}
+        path={`/services/${service.slug}`}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Service",
+              name: `${service.title} in Surat`,
+              serviceType: service.title,
+              description: service.intro,
+              url: serviceUrl,
+              provider: { "@id": `${SITE_URL}/#business` },
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: service.title, item: serviceUrl },
+              ],
+            },
+          ],
+        }}
+      />
       {/* ── Scroll progress bar ─────────────────────────────────── */}
       <motion.div
         className="service-scroll-progress"
