@@ -11,6 +11,25 @@ import { serviceCatalog } from "./data/services";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 const logoUrl = "/main%20logo.PNG";
+const GA_MEASUREMENT_ID = "AW-18372304953";
+
+const trackPageView = (pathname, search = "") => {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  window.gtag("config", GA_MEASUREMENT_ID, {
+    page_path: `${pathname}${search}`,
+    send_page_view: true,
+  });
+};
+
+function GoogleAnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname, location.search);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
 
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/thevisionhive16?igsi=MWY4b296a2s4dzdz", Icon: Camera },
@@ -748,10 +767,13 @@ function HomePage() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/"               element={<HomePage />} />
-      <Route path="/services/:slug" element={<ServiceDetailPage />} />
-      <Route path="*"               element={<HomePage />} />
-    </Routes>
+    <>
+      <GoogleAnalyticsTracker />
+      <Routes>
+        <Route path="/"               element={<HomePage />} />
+        <Route path="/services/:slug" element={<ServiceDetailPage />} />
+        <Route path="*"               element={<HomePage />} />
+      </Routes>
+    </>
   );
 }
