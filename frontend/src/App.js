@@ -11,13 +11,14 @@ import { serviceCatalog } from "./data/services";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 const logoUrl = "/main%20logo.PNG";
-const GA_MEASUREMENT_ID = "AW-18372304953";
+const GA_MEASUREMENT_ID = "G-22L2GP5TC1";
 
 const trackPageView = (pathname, search = "") => {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("config", GA_MEASUREMENT_ID, {
+  window.gtag("event", "page_view", {
     page_path: `${pathname}${search}`,
-    send_page_view: true,
+    page_location: `${window.location.origin}${pathname}${search}`,
+    page_title: document.title,
   });
 };
 
