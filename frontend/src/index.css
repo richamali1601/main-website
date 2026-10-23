@@ -17,11 +17,18 @@
 
 /* ─── Base resets ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
 body {
   background: var(--ink);
   color: var(--paper);
   font-family: Manrope, sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 h1, h2, h3, p { margin-top: 0; }
 
@@ -177,28 +184,85 @@ h1, h2, h3, p { margin-top: 0; }
   .service-scroll-cue-line { animation: none; transform: scaleX(1); }
 }
 
-/* ─── Client Logo Marquee Animation ────────────────────────────── */
-@keyframes clientMarquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+/* ─── Client Logo Marquee Animation (Cross-Device & GPU-Accelerated) ─── */
+#root {
+  overflow-x: hidden;
+  width: 100%;
 }
 
-.animate-client-marquee {
+.marquee-container {
   display: flex;
-  width: max-content;
-  animation: clientMarquee 32s linear infinite;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1.25rem;
+  padding-right: 1.25rem;
+  animation: marqueeGlide 28s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
-.animate-client-marquee:hover {
-  animation-play-state: paused;
+@media (min-width: 640px) {
+  .marquee-track {
+    gap: 2.25rem;
+    padding-right: 2.25rem;
+    animation-duration: 32s;
+  }
 }
 
+@media (min-width: 1024px) {
+  .marquee-track {
+    gap: 3.5rem;
+    padding-right: 3.5rem;
+    animation-duration: 38s;
+  }
+}
+
+/* Only pause on hover for actual mouse pointer devices, never freeze on touch */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-container:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marqueeGlide {
+  0% {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* Graceful fallback for devices with reduce-motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-client-marquee {
+  .marquee-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  .marquee-track {
     animation: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
+  }
+  .marquee-track[aria-hidden="true"] {
+    display: none;
   }
 }

@@ -466,18 +466,18 @@ function HomePage() {
         </section>
 
         {/* ── WORK / OUR CLIENTS ─────────────────────────────────── */}
-        <section id="work" className="bg-white text-ink py-[110px] md:py-[140px] overflow-hidden">
-          <div className="max-w-4xl mx-auto px-6 text-center mb-12 md:mb-16">
+        <section id="work" className="bg-white text-ink py-[70px] sm:py-[100px] md:py-[130px] overflow-hidden w-full">
+          <div className="max-w-4xl mx-auto px-5 sm:px-6 text-center mb-9 sm:mb-12 md:mb-16">
             <Reveal>
               {/* Badge */}
-              <div className="inline-flex items-center justify-center mb-4">
-                <span className="px-4 py-1.5 rounded-full text-[13px] font-semibold tracking-wide bg-[#008b91]/10 text-[#008b91] border border-[#008b91]/20 shadow-[0_2px_8px_rgba(0,139,145,0.08)]">
+              <div className="inline-flex items-center justify-center mb-3 sm:mb-4">
+                <span className="px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full text-[12px] sm:text-[13px] font-semibold tracking-wide bg-[#008b91]/10 text-[#008b91] border border-[#008b91]/20 shadow-[0_2px_8px_rgba(0,139,145,0.08)]">
                   Our Clients
                 </span>
               </div>
 
               {/* Heading */}
-              <h2 className="text-[clamp(2.4rem,5vw,4.5rem)] font-extrabold tracking-[-0.04em] leading-[1.08] text-ink m-0">
+              <h2 className="text-[clamp(1.9rem,5.5vw,4.5rem)] font-extrabold tracking-[-0.04em] leading-[1.08] text-ink m-0">
                 Trusted by Leading{" "}
                 <span className="bg-gradient-to-r from-[#008b91] via-[#0daab2] to-[#12dbe5] bg-clip-text text-transparent">
                   Companies
@@ -485,27 +485,58 @@ function HomePage() {
               </h2>
 
               {/* Subtext */}
-              <p className="mt-4 font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[#707a7d] uppercase">
-                PROOF, NOT PROMISES <span className="text-[#008b91] mx-2">—</span> PARTNERS IN DIGITAL GROWTH
+              <p className="mt-3 sm:mt-4 font-mono text-[10px] sm:text-[11px] md:text-[12px] tracking-[0.14em] sm:tracking-[0.2em] text-[#707a7d] uppercase">
+                PROOF, NOT PROMISES <span className="text-[#008b91] mx-1.5 sm:mx-2">—</span> PARTNERS IN DIGITAL GROWTH
               </p>
             </Reveal>
           </div>
 
-          {/* Infinite Logo Carousel with Edge Fade */}
-          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)] py-6">
-            <div className="animate-client-marquee flex items-center gap-8 md:gap-12">
-              {[...work, ...work, ...work, ...work].map((w, idx) => (
+          {/* Infinite Logo Carousel with Edge Fade (Cross-Device Two-Track System) */}
+          <div className="marquee-container py-3 sm:py-6">
+            {/* Primary Track */}
+            <div className="marquee-track">
+              {[...work, ...work].map((w, idx) => (
                 <div
-                  key={`${w[0]}-${idx}`}
+                  key={`marquee-a-${w[0]}-${idx}`}
                   onClick={() => go("contact")}
-                  className="h-[120px] md:h-[140px] px-6 md:px-8 flex items-center justify-center shrink-0 cursor-pointer group transition-transform duration-300 hover:scale-110"
+                  className="h-[75px] sm:h-[95px] md:h-[125px] px-3 sm:px-5 md:px-8 flex items-center justify-center shrink-0 cursor-pointer group transition-transform duration-300 hover:scale-105 active:scale-95"
                   data-testid={`work-card-${(idx % work.length) + 1}`}
                   title={`${w[0]} - ${w[1]}`}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      go("contact");
+                    }
+                  }}
                 >
                   <img
                     src={w[4]}
                     alt={w[5]}
-                    className="max-h-[90px] md:max-h-[110px] max-w-[200px] md:max-w-[240px] w-auto h-auto object-contain transition-all duration-300 group-hover:scale-105 mix-blend-multiply"
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-[46px] sm:max-h-[66px] md:max-h-[92px] max-w-[125px] sm:max-w-[175px] md:max-w-[230px] w-auto h-auto object-contain transition-all duration-300 group-hover:scale-105 mix-blend-multiply pointer-events-none select-none"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Twin Track for mathematically seamless infinite loop */}
+            <div className="marquee-track" aria-hidden="true">
+              {[...work, ...work].map((w, idx) => (
+                <div
+                  key={`marquee-b-${w[0]}-${idx}`}
+                  onClick={() => go("contact")}
+                  className="h-[75px] sm:h-[95px] md:h-[125px] px-3 sm:px-5 md:px-8 flex items-center justify-center shrink-0 cursor-pointer group transition-transform duration-300 hover:scale-105 active:scale-95"
+                  tabIndex={-1}
+                >
+                  <img
+                    src={w[4]}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className="max-h-[46px] sm:max-h-[66px] md:max-h-[92px] max-w-[125px] sm:max-w-[175px] md:max-w-[230px] w-auto h-auto object-contain transition-all duration-300 group-hover:scale-105 mix-blend-multiply pointer-events-none select-none"
                   />
                 </div>
               ))}
