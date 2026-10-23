@@ -33,7 +33,7 @@ function GoogleAnalyticsTracker() {
 }
 
 const socialLinks = [
-  { label: "Instagram", href: "https://www.instagram.com/thevisionhive16?igsi=MWY4b296a2s4dzdz", Icon: Camera },
+  { label: "Instagram", href: "https://www.instagram.com/thevisionhive?obrf=MWY4b296a2s4dzdz", Icon: Camera },
   { label: "Facebook",  href: "https://www.facebook.com/profile.php?id=61590595676030", Icon: Users },
   { label: "LinkedIn",  href: "https://www.linkedin.com/in/richa-mali-228675282?utm_source=share_via&utm_content=profile&utm_medium=member_ios", Icon: Briefcase },
 ];
@@ -46,9 +46,13 @@ const processSteps = [
 ];
 
 const work = [
-  ["AMRUT",         "Fashion / 2026",  "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY", "/work/amrut.jpg",       "Amrut fashion brand logo"],
-  ["COFFY-RICO",    "Coffee / 2026",   "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY", "/work/logo.svg",         "Coffy-Rico brand logo"],
-  ["NIDHI SKINCARE","Skincare / 2026", "A future case study will live here. Replace this with your project story, services and verified outcome.", "VIEW CASE STUDY", "/work/nidhi-logo.avif",  "Nidhi Skincare brand logo"],
+  ["AMRUT",         "Fashion / 2026",    "Ethnic & contemporary fashion brand identity, digital marketing, and social storytelling celebrating style.", "VIEW CASE STUDY", "/work/amrut.jpg",       "Amrut fashion brand logo"],
+  ["COFFY-RICO",    "Coffee / 2026",     "Artisan coffee roastery branding, packaging design, and omni-channel customer acquisition campaigns.",        "VIEW CASE STUDY", "/work/logo.svg",         "Coffy-Rico brand logo"],
+  ["NIDHI SKINCARE","Skincare / 2026",   "Holistic skincare brand positioning, aesthetic creative direction, and high-converting paid social campaigns.", "VIEW CASE STUDY", "/work/nidhi-logo.avif",  "Nidhi Skincare brand logo"],
+  ["TFM",           "Bakehouse / 2026",  "Artisan bakery branding, social media marketing, and creative campaigns driving footfall and local buzz.",    "VIEW CASE STUDY", "/work/TFM-removebg-preview.png",       "TFM Bakehouse brand logo"],
+  ["CHIPZOLA",      "Snacks / 2026",     "Healthy snack brand positioning, packaging promotion, and performance marketing for retail expansion.",      "VIEW CASE STUDY", "/work/chipzola-removebg-preview.png",   "Chipzola healthy snacks brand logo"],
+  ["PARABOLICA",    "Gaming / 2026",     "High-octane visual identity, social content, and launch campaigns for an immersive VR & sim-racing studio.",   "VIEW CASE STUDY", "/work/perabolica-removebg-preview.png", "Parabolica VR gaming and sim-racing studio logo"],
+  ["POPPIGO",       "Lifestyle / 2026",  "Vibrant lifestyle branding, community engagement, and digital growth campaigns that turn heads.",            "VIEW CASE STUDY", "/work/poppigo-removebg-preview.png",    "PoppiGo lifestyle brand logo"],
 ];
 
 const insights = [
@@ -472,11 +476,11 @@ function HomePage() {
                 PROOF, NOT<br /><em>PROMISES.</em>
               </h2>
               <p className="text-[16px] leading-[1.75] text-[#596164] max-w-[400px] self-end">
-                Real stories will replace these placeholders as the Vision Hive portfolio takes shape.
+                Selected client partnerships and brand growth stories powered by The Vision Hive.
               </p>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[22px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[22px]">
             {work.map((w, i) => (
               <Reveal key={w[0]} delay={i * 0.1}>
                 <article
@@ -496,7 +500,7 @@ function HomePage() {
                     <div className="absolute w-56 h-56 rounded-full border border-dashed border-[#008b91]/25 transition-all duration-1000 ease-out group-hover:rotate-45 group-hover:border-[#008b91]/50 pointer-events-none" />
 
                     {/* Elevated brand logo plate */}
-                    <div className="relative z-10 w-[200px] h-[120px] bg-white rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-black/[0.06] flex items-center justify-center p-5 transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-[0_16px_36px_rgba(0,0,0,0.12)]">
+                    <div className="relative z-10 w-[84%] max-w-[190px] h-[115px] bg-white rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-black/[0.06] flex items-center justify-center p-3.5 transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-[0_16px_36px_rgba(0,0,0,0.12)]">
                       {w[4] ? (
                         <img
                           src={w[4]}
@@ -518,8 +522,8 @@ function HomePage() {
                   <div className="p-[28px_24px_24px] flex-1 flex flex-col justify-between">
                     <div>
                       <p className="font-mono font-medium text-[11px] tracking-[0.18em] text-[#008b91] uppercase mb-2.5">{w[1]}</p>
-                      <h3 className="text-[22px] font-bold tracking-[-0.04em] text-ink mb-2.5">{w[0]}</h3>
-                      <p className="text-[13px] leading-[1.65] text-[#596164] min-h-[55px] mb-4">{w[2]}</p>
+                      <h3 className="text-[20px] sm:text-[21px] font-bold tracking-[-0.04em] text-ink mb-2.5">{w[0]}</h3>
+                      <p className="text-[13px] leading-[1.65] text-[#596164] min-h-[64px] mb-4">{w[2]}</p>
                     </div>
                     <button
                       className="border-0 bg-transparent p-0 inline-flex items-center gap-2 font-manrope font-bold text-[11px] uppercase cursor-pointer text-ink tracking-wider transition-colors duration-200 group-hover:text-[#008b91]"
