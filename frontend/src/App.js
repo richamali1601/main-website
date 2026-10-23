@@ -465,78 +465,51 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ── WORK ─────────────────────────────────────────────── */}
-        <section id="work" className="bg-paper text-ink px-[9vw] py-[150px]">
-          <Reveal>
-            <p className="font-mono font-medium text-[11px] tracking-[0.2em] text-[#008b91] uppercase mb-7">
-              SELECTED WORK <span className="text-muted ml-3">—</span>
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-[1.4fr_0.75fr] gap-[9vw] mb-[85px]">
-              <h2 className="text-[clamp(2.7rem,5.7vw,6.2rem)] tracking-[-0.07em] leading-[0.94] m-0 [&_em]:not-italic [&_em]:text-[#008b91]">
-                PROOF, NOT<br /><em>PROMISES.</em>
+        {/* ── WORK / OUR CLIENTS ─────────────────────────────────── */}
+        <section id="work" className="bg-white text-ink py-[110px] md:py-[140px] overflow-hidden">
+          <div className="max-w-4xl mx-auto px-6 text-center mb-12 md:mb-16">
+            <Reveal>
+              {/* Badge */}
+              <div className="inline-flex items-center justify-center mb-4">
+                <span className="px-4 py-1.5 rounded-full text-[13px] font-semibold tracking-wide bg-[#008b91]/10 text-[#008b91] border border-[#008b91]/20 shadow-[0_2px_8px_rgba(0,139,145,0.08)]">
+                  Our Clients
+                </span>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-[clamp(2.4rem,5vw,4.5rem)] font-extrabold tracking-[-0.04em] leading-[1.08] text-ink m-0">
+                Trusted by Leading{" "}
+                <span className="bg-gradient-to-r from-[#008b91] via-[#0daab2] to-[#12dbe5] bg-clip-text text-transparent">
+                  Companies
+                </span>
               </h2>
-              <p className="text-[16px] leading-[1.75] text-[#596164] max-w-[400px] self-end">
-                Selected client partnerships and brand growth stories powered by The Vision Hive.
+
+              {/* Subtext */}
+              <p className="mt-4 font-mono text-[11px] md:text-[12px] tracking-[0.2em] text-[#707a7d] uppercase">
+                PROOF, NOT PROMISES <span className="text-[#008b91] mx-2">—</span> PARTNERS IN DIGITAL GROWTH
               </p>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[22px]">
-            {work.map((w, i) => (
-              <Reveal key={w[0]} delay={i * 0.1}>
-                <article
-                  className="bg-[#ebe8e1] border border-ink/[0.08] flex flex-col group transition-all duration-300 hover:border-[#008b91]/40 hover:shadow-[0_18px_38px_rgba(0,0,0,0.06)] hover:-translate-y-1"
-                  data-testid={`work-card-${i + 1}`}
+            </Reveal>
+          </div>
+
+          {/* Infinite Logo Carousel with Edge Fade */}
+          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)] py-6">
+            <div className="animate-client-marquee flex items-center gap-8 md:gap-12">
+              {[...work, ...work, ...work, ...work].map((w, idx) => (
+                <div
+                  key={`${w[0]}-${idx}`}
+                  onClick={() => go("contact")}
+                  className="h-[120px] md:h-[140px] px-6 md:px-8 flex items-center justify-center shrink-0 cursor-pointer group transition-transform duration-300 hover:scale-110"
+                  data-testid={`work-card-${(idx % work.length) + 1}`}
+                  title={`${w[0]} - ${w[1]}`}
                 >
-                  {/* Card showcase area */}
-                  <div className="relative aspect-[1.25/1] overflow-hidden flex items-center justify-center bg-[#f0ede6] border-b border-ink/[0.06] p-6">
-                    {/* Subtle grid pattern */}
-                    <div className="absolute inset-0 opacity-[0.35] bg-[radial-gradient(#008b91_1px,transparent_1px)] [background-size:18px_18px] pointer-events-none" />
-
-                    {/* Ambient glow */}
-                    <div className="absolute w-36 h-36 rounded-full bg-teal/20 blur-xl transition-all duration-700 ease-out group-hover:scale-150 group-hover:bg-teal/35 pointer-events-none" />
-
-                    {/* Concentric geometric rings */}
-                    <div className="absolute w-44 h-44 rounded-full border border-teal/30 transition-all duration-700 ease-out group-hover:scale-110 group-hover:border-teal/60 pointer-events-none" />
-                    <div className="absolute w-56 h-56 rounded-full border border-dashed border-[#008b91]/25 transition-all duration-1000 ease-out group-hover:rotate-45 group-hover:border-[#008b91]/50 pointer-events-none" />
-
-                    {/* Elevated brand logo plate */}
-                    <div className="relative z-10 w-[84%] max-w-[190px] h-[115px] bg-white rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-black/[0.06] flex items-center justify-center p-3.5 transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-[0_16px_36px_rgba(0,0,0,0.12)]">
-                      {w[4] ? (
-                        <img
-                          src={w[4]}
-                          alt={w[5]}
-                          className="max-w-full max-h-full object-contain filter transition-transform duration-500"
-                        />
-                      ) : (
-                        <span className="font-mono text-[10px] tracking-[0.15em] text-[#008b91]">PLACEHOLDER</span>
-                      )}
-                    </div>
-
-                    {/* Card number badge */}
-                    <span className="absolute right-4 top-4 font-mono text-[11px] font-semibold tracking-wider text-[#008b91] bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded border border-black/[0.05] shadow-sm z-20">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-
-                  {/* Card info */}
-                  <div className="p-[28px_24px_24px] flex-1 flex flex-col justify-between">
-                    <div>
-                      <p className="font-mono font-medium text-[11px] tracking-[0.18em] text-[#008b91] uppercase mb-2.5">{w[1]}</p>
-                      <h3 className="text-[20px] sm:text-[21px] font-bold tracking-[-0.04em] text-ink mb-2.5">{w[0]}</h3>
-                      <p className="text-[13px] leading-[1.65] text-[#596164] min-h-[64px] mb-4">{w[2]}</p>
-                    </div>
-                    <button
-                      className="border-0 bg-transparent p-0 inline-flex items-center gap-2 font-manrope font-bold text-[11px] uppercase cursor-pointer text-ink tracking-wider transition-colors duration-200 group-hover:text-[#008b91]"
-                      onClick={() => go("contact")}
-                      data-testid={`work-case-study-${i + 1}`}
-                    >
-                      <span>{w[3]}</span>
-                      <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    </button>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
+                  <img
+                    src={w[4]}
+                    alt={w[5]}
+                    className="max-h-[90px] md:max-h-[110px] max-w-[200px] md:max-w-[240px] w-auto h-auto object-contain transition-all duration-300 group-hover:scale-105 mix-blend-multiply"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 

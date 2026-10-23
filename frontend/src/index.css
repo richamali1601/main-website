@@ -176,3 +176,29 @@ h1, h2, h3, p { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .service-scroll-cue-line { animation: none; transform: scaleX(1); }
 }
+
+/* ─── Client Logo Marquee Animation ────────────────────────────── */
+@keyframes clientMarquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-client-marquee {
+  display: flex;
+  width: max-content;
+  animation: clientMarquee 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-client-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-client-marquee {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+}
